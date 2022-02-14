@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 
 import { LineDescription } from './../interfaces/line-description';
 import { Line } from '../interfaces/line';
+import { Stops } from '../interfaces/stops';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +33,11 @@ export class ApiMetromobiliteService {
    * @param callback treatement to data (must return data)
    * @returns Promise
    */
-  private get(key: string, relativeUrlPath: string, callback?: Function): Promise<any> {
+  private get(
+    key: string,
+    relativeUrlPath: string,
+    callback?: Function
+  ): Promise<any> {
     let cachable: boolean = this.cache[key] !== undefined;
 
     return new Promise(async (resolve) => {
@@ -96,5 +101,46 @@ export class ApiMetromobiliteService {
         return data;
       }
     )) as LineDescription;
+  }
+
+  async getTramStopList(): Promise<Stops> {
+    return new Promise(async (resolve) => {
+      this.http
+        .get(this.baseUrl + 'bbox/json?types=arret')
+        .subscribe(async (data: Stops) => {
+          // remove bus and hidden by api
+          data.features = data.features.filter((stop) => {
+            return stop.properties.arr_visible === '1' &&
+            stop.properties.id.includes('SEM:');
+          })
+          // reverse latitude and longitude
+          data.features.forEach((feature) => {
+            feature.geometry.coordinates = this.reverseCoord(feature.geometry.coordinates);
+          });
+          resolve(data);
+        });
+    });
+  }
+
+  /**
+   * reverse a coordinate
+   * @param item 
+   * @returns 
+   */
+  reverseCoord(item: [number, number]) {
+    let temp = item[0];
+    item[0] = item[1];
+    item[1] = temp;
+    return item;
+  }
+
+  /**
+   * reverse a list of coordinate
+   * @param items 
+   */
+  reverseCoords(items: [number, number][]){
+    items.forEach((item, index) => {
+      items[index] = this.reverseCoord(items[index]);
+    })
   }
 }
