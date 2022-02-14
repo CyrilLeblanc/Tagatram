@@ -8,7 +8,7 @@
 
   <ion-card *ngFor="let line of lineList">
     <div (click)="detail(line.id)">
-      <div color="line.color">
+      <div class="shortName" style="background-color:#{{line.color}}">
         {{ line.shortName }}
       </div><div>
         {{ line.longName }}
@@ -16,7 +16,7 @@
     </div>
     <ion-list class="detailStops" *ngIf="lineListDetailCondition[line.id]">
       <ion-item>
-        <ion-label>détails arrets ligne {{ line.shortName }}</ion-label>
+        <ion-label>détails arrêts ligne {{ line.shortName }}</ion-label>
       </ion-item>
     </ion-list>
   </ion-card>
