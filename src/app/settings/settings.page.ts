@@ -12,4 +12,21 @@ export class SettingsPage implements OnInit {
   ngOnInit() {
   }
 
+  public languages = [
+    { name: 'Français', class: 'french' },
+    { name: 'English', class: 'english' }
+  ];
+
+  public themeColor = [
+    { name: 'Clair', class: 'light' },
+    { name: 'Sombre', class: 'dark' }
+  ];
+
+  public mainPage = [
+    { name: 'Carte', class: 'map' },
+    { name: 'Favoris', class: 'favorites' },
+    { name: 'Itinéraire', class: 'route' },
+    { name: 'Lignes', class: 'lines' }
+  ];
+
 }

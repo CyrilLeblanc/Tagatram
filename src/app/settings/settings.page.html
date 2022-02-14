@@ -15,9 +15,11 @@
         <ion-col>
           <ion-item>
             <ion-label>Langue</ion-label>
-            <ion-select value="Français" cancelText="Annuler" disabled>
-              <ion-select-option value="Français" selected>Français</ion-select-option>
-              <ion-select-option value="English">English</ion-select-option>
+            <ion-select class="selectLanguage" [interfaceOptions]="customPopoverOptions" interface="popover"
+                [(ngModel)]="selectLanguage" (ionChange)="dynamicLanguage()" disabled>
+                <ion-select-option [value]="language.class" *ngFor="let language of languages;let i = indexs">
+                  {{language.name}}
+                </ion-select-option>
             </ion-select>
           </ion-item>
         </ion-col>
@@ -30,11 +32,11 @@
         <ion-col>
           <ion-item>
             <ion-label>Page d'accueil</ion-label>
-            <ion-select value="Carte" cancelText="Annuler">
-              <ion-select-option value="Carte" selected>Carte</ion-select-option>
-              <ion-select-option value="Favoris">Favoris</ion-select-option>
-              <ion-select-option value="Itinéraire">Itinéraire</ion-select-option>
-              <ion-select-option value="Lignes">Lignes</ion-select-option>
+            <ion-select class="selectMainPage" [interfaceOptions]="customPopoverOptions" interface="popover"
+                [(ngModel)]="selectMainPage" (ionChange)="dynamicMainPage()">
+                <ion-select-option [value]="page.class" *ngFor="let page of mainPage;let i = indexs">
+                  {{page.name}}
+                </ion-select-option>
             </ion-select>
           </ion-item>
         </ion-col>
@@ -47,9 +49,11 @@
         <ion-col>
           <ion-item>
             <ion-label>Thème</ion-label>
-            <ion-select value="Sombre" cancelText="Annuler">
-              <ion-select-option value="Sombre" selected>Sombre</ion-select-option>
-              <ion-select-option value="Clair">Clair</ion-select-option>
+            <ion-select class="selectTheme" [interfaceOptions]="customPopoverOptions" interface="popover"
+                [(ngModel)]="selectTheme" (ionChange)="dynamicTheme()">
+                <ion-select-option color="light" [value]="theme.class" *ngFor="let theme of themeColor;let i = indexs">
+                  {{theme.name}}
+                </ion-select-option>
             </ion-select>
           </ion-item>
         </ion-col>
