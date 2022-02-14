@@ -44,7 +44,7 @@ export class ApiMetromobiliteService {
     return new Promise(async (resolve) => {
       if (cachable && this.cache[key] !== null) {
         // if cachable and available in cache
-        console.info(`API: ${key} loaded from cache`, this.cache[key]);
+        console.debug(`API: ${key} loaded from cache`, this.cache[key]);
         resolve(this.cache[key]);
         return;
       }
@@ -60,7 +60,7 @@ export class ApiMetromobiliteService {
             } else {
               this[key] = data;
             }
-            console.info(`API: ${key} loaded from API`, this[key]);
+            console.debug(`API: ${key} loaded from API`, this[key]);
             resolve(data);
             return;
           });
@@ -111,12 +111,13 @@ export class ApiMetromobiliteService {
         .subscribe(async (data: Stops) => {
           // remove bus and hidden by api
           data.features = data.features.filter((stop) => {
-            return stop.properties.arr_visible === '1' &&
-            stop.properties.id.includes('SEM:');
-          })
+            return stop.properties.arr_visible === '1';
+          });
           // reverse latitude and longitude
           data.features.forEach((feature) => {
-            feature.geometry.coordinates = this.reverseCoord(feature.geometry.coordinates);
+            feature.geometry.coordinates = this.reverseCoord(
+              feature.geometry.coordinates
+            );
           });
           resolve(data);
         });
@@ -135,8 +136,8 @@ export class ApiMetromobiliteService {
 
   /**
    * reverse a coordinate
-   * @param item 
-   * @returns 
+   * @param item
+   * @returns
    */
   reverseCoord(item: [number, number]) {
     let temp = item[0];
@@ -147,11 +148,11 @@ export class ApiMetromobiliteService {
 
   /**
    * reverse a list of coordinate
-   * @param items 
+   * @param items
    */
-  reverseCoords(items: [number, number][]){
+  reverseCoords(items: [number, number][]) {
     items.forEach((item, index) => {
       items[index] = this.reverseCoord(items[index]);
-    })
+    });
   }
 }
