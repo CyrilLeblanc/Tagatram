@@ -41,4 +41,14 @@ export class SettingsPage implements OnInit {
     }
   }
 
+  selectMainPage = String(document.querySelector('.selectMainPage'));
+  public dynamicMainPage() {
+    switch (this.selectMainPage) {
+      case "map":
+      case "favorites":
+      case "route":
+      case "lines":
+    }
+  }
+
 }

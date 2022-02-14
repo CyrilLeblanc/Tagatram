@@ -34,7 +34,7 @@
             <ion-label>Page d'accueil</ion-label>
             <ion-select class="selectMainPage" [interfaceOptions]="customPopoverOptions" interface="popover"
                 [(ngModel)]="selectMainPage" (ionChange)="dynamicMainPage()">
-                <ion-select-option [value]="page.class" *ngFor="let page of mainPage;let i = indexs">
+                <ion-select-option class="selectMainPageOption" [value]="page.class" *ngFor="let page of mainPage;let i = indexs">
                   {{page.name}}
                 </ion-select-option>
             </ion-select>
@@ -50,7 +50,7 @@
           <ion-item>
             <ion-label>Thème</ion-label>
             <ion-select class="selectTheme" [interfaceOptions]="customPopoverOptions" interface="popover"
-                [(ngModel)]="selectTheme" (ionChange)="dynamicTheme();">
+                [(ngModel)]="selectTheme" (ionChange)="dynamicTheme()">
                 <ion-select-option class="selectThemeOption" [value]="theme.class" *ngFor="let theme of themeColor;let i = indexs">
                   {{theme.name}}
                 </ion-select-option>
