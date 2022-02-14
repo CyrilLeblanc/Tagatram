@@ -113,7 +113,6 @@ export class ApiMetromobiliteService {
             return stop.properties.arr_visible === '1' &&
             stop.properties.id.includes('SEM:');
           })
-          console.log(data.features);
           // reverse latitude and longitude
           data.features.forEach((feature) => {
             feature.geometry.coordinates = this.reverseCoord(feature.geometry.coordinates);
