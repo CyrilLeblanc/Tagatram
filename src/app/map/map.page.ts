@@ -1,3 +1,5 @@
+import { Line } from './../interfaces/line';
+import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as Leaflet from 'leaflet';
 
@@ -9,7 +11,7 @@ import * as Leaflet from 'leaflet';
 export class MapPage implements OnInit, OnDestroy {
   map: Leaflet.Map;
 
-  constructor() {}
+  constructor(private api: ApiMetromobiliteService) {}
 
   ngOnInit() {}
 
@@ -21,10 +23,20 @@ export class MapPage implements OnInit, OnDestroy {
     this.map.remove();
   }
 
-  loadMap() {
+  async loadMap() {
     this.map = Leaflet.map('map').setView([45.1709, 5.7395], 12);
     Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'edupala.com © Angular LeafLet',
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(this.map);
+
+    // display tram line
+    (await this.api.getTramLineList()).forEach(async (line: Line) => {
+      Leaflet.polyline((await this.api.getLineDescription(line.id)).features[0]
+      .geometry.coordinates[0], {
+        weight: 5,
+        color: `#${line.color}`,
+      }).addTo(this.map);
+    });
   }
 }

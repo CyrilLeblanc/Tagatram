@@ -1,5 +1,7 @@
 {
   "name": "tagatram",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
