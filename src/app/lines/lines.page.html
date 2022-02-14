@@ -1,16 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>lines</ion-title>
+    <ion-title>Lignes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-card *ngFor="let line of lineList">
-    <div (click)="detail(line.id)">
+  <ion-card class="card" *ngFor="let line of lineList">
+    <div class="summary" (click)="detail(line.id)">
       <div class="shortName" style="background-color:#{{line.color}}">
         {{ line.shortName }}
-      </div><div>
+      </div>
+      <div class="longName">
         {{ line.longName }}
       </div>
     </div>

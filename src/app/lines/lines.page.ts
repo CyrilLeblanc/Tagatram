@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Line } from './../interfaces/line';
+import { Stops } from './../interfaces/stops';
 import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
 
 @Component({
@@ -11,6 +12,8 @@ export class LinesPage implements OnInit {
 
   lineList: Line[];
   lineListDetailCondition = [];
+  stopList: Stops[][];
+  autre;
 
   constructor(
     private api: ApiMetromobiliteService
@@ -29,12 +32,13 @@ export class LinesPage implements OnInit {
       this.lineListDetailCondition[line.id] = false;
     });
 
-    console.log(this.lineListDetailCondition);
+    this.autre = await this.api.getTramStopList();
+    console.log(this.autre);
+
   }
 
   detail(arg) {
     this.lineListDetailCondition[arg] = !this.lineListDetailCondition[arg];
-    console.log(this.lineListDetailCondition);
   }
   
 
