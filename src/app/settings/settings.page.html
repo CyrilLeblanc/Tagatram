@@ -50,8 +50,8 @@
           <ion-item>
             <ion-label>Thème</ion-label>
             <ion-select class="selectTheme" [interfaceOptions]="customPopoverOptions" interface="popover"
-                [(ngModel)]="selectTheme" (ionChange)="dynamicTheme()">
-                <ion-select-option color="light" [value]="theme.class" *ngFor="let theme of themeColor;let i = indexs">
+                [(ngModel)]="selectTheme" (ionChange)="dynamicTheme();">
+                <ion-select-option class="selectThemeOption" [value]="theme.class" *ngFor="let theme of themeColor;let i = indexs">
                   {{theme.name}}
                 </ion-select-option>
             </ion-select>

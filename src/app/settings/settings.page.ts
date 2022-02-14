@@ -29,4 +29,16 @@ export class SettingsPage implements OnInit {
     { name: 'Lignes', class: 'lines' }
   ];
 
+  selectTheme = String(document.querySelector('.selectThemeOption'));
+  public dynamicTheme() {
+    switch (this.selectTheme) {
+      case "light": 
+        window.matchMedia('(prefers-color-scheme: light)');
+        break;
+      case "dark":
+        window.matchMedia('(prefers-color-scheme: dark)');
+        break;
+    }
+  }
+
 }
