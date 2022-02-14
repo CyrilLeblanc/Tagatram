@@ -1,19 +1,45 @@
 
-.card {
-    display: flex;
-    flex-wrap: wrap;
-}
 .summary {
-    width: max-content;
+    display: flex;
+    flex-wrap: nowrap;
+    color: black;
 }
-
+.longName {
+    margin-left: 3px;
+    font-size:small;
+    width: fit-content;
+    vertical-align: middle;
+    display: table;
+}
+span {
+    vertical-align:middle;
+    display: table-cell;
+}
 .shortName {
     color: #FFFFFF;
     text-align: center;
-    padding-top: 6px;
+    padding: 6px 10px;
     width: 30px;
     height: 30px;
     border-radius: 20px;
-    margin-top: 3px;
+    margin: 3px;
+    font-size: small;
+    font-weight: bold;
+}
+.directionBut {
+    text-align: right;
+    font-size: smaller;
+    margin-right: 3px;
+    display: table;
+}
+.icon {
     margin-left: 3px;
+    vertical-align:middle;
+    display: table-cell;
+}
+.item {
+    height: 40px;
+}
+.label{
+    margin: 0;
 }
