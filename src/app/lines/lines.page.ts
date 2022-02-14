@@ -12,8 +12,8 @@ export class LinesPage implements OnInit {
 
   lineList: Line[];
   lineListDetailCondition = [];
-  stopList: Stops[][];
-  autre;
+  stopList = {};
+  stopListNames;
 
   constructor(
     private api: ApiMetromobiliteService
@@ -21,25 +21,30 @@ export class LinesPage implements OnInit {
 
   ngOnInit() {
     this.initialisation();
-
   }
 
   async initialisation() {
     this.lineList = await this.api.getTramLineList();
     console.log(this.lineList);
 
-    this.lineList.forEach(line => {
+    this.lineList.forEach(async line => {
       this.lineListDetailCondition[line.id] = false;
+      this.api.getStopByLine(line.id).then(async stops => {
+        stops[0].arrets.forEach(name => {
+          name.stopName = name.stopName.replace(name.stopName.split(' ')[0], '');
+        });
+        this.stopList[line.id] = stops[0].arrets;
+      });
     });
-
-    this.autre = await this.api.getTramStopList();
-    console.log(this.autre);
-
+    console.log(this.stopList);
   }
-
+  
   detail(arg) {
     this.lineListDetailCondition[arg] = !this.lineListDetailCondition[arg];
   }
-  
 
+  direction(arg) {
+    this.stopList[arg].reverse();
+  }
+  
 }

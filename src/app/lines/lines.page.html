@@ -16,8 +16,9 @@
       </div>
     </div>
     <ion-list class="detailStops" *ngIf="lineListDetailCondition[line.id]">
-      <ion-item>
-        <ion-label>détails arrêts ligne {{ line.shortName }}</ion-label>
+      <div (click)="direction(line.id)">changer la direction</div>
+      <ion-item *ngFor="let stop of stopList[line.id]">
+        <ion-label>{{ stop.stopName }}</ion-label>
       </ion-item>
     </ion-list>
   </ion-card>
