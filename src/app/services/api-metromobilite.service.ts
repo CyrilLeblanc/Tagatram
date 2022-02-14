@@ -124,7 +124,14 @@ export class ApiMetromobiliteService {
     });
   }
 
-  async getStopByLine(lineId: string): Promise<any> {
+  /**
+   * TO REMOVE LATER
+   */
+  async getStopByLine(lineId: string): Promise<LineSchedule>{
+    return this.getLineSchedule(lineId);
+  }
+
+  async getLineSchedule(lineId: string): Promise<LineSchedule> {
     return new Promise(async (resolve) => {
       this.http
         .get(this.baseUrl + `ficheHoraires/json?route=${lineId}`)
