@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>lines</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let line of lineList">
+    <div (click)="detail(line.id)">
+      <div color="line.color">
+        {{ line.shortName }}
+      </div><div>
+        {{ line.longName }}
+      </div>
+    </div>
+    <ion-list class="detailStops" *ngIf="lineListDetailCondition[line.id]">
+      <ion-item>
+        <ion-label>détails arrets ligne {{ line.shortName }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+</ion-content>

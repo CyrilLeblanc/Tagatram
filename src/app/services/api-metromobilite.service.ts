@@ -69,7 +69,7 @@ export class ApiMetromobiliteService {
     )) as Line[];
   }
 
-  async getTramLineList() {
+  async getTramLineList(): Promise<Line[]> {
     let tramLineList: Line[] = [];
     (await this.getLineList()).forEach((line: Line) => {
       if (line.mode === 'TRAM') {
