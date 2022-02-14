@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { LineDescription } from './../interfaces/line-description';
 import { Line } from '../interfaces/line';
 import { Stops } from '../interfaces/stops';
+import { LineSchedule } from './../interfaces/line-schedule';
 
 @Injectable({
   providedIn: 'root',
@@ -117,6 +118,16 @@ export class ApiMetromobiliteService {
           data.features.forEach((feature) => {
             feature.geometry.coordinates = this.reverseCoord(feature.geometry.coordinates);
           });
+          resolve(data);
+        });
+    });
+  }
+
+  async getStopByLine(lineId: string): Promise<any> {
+    return new Promise(async (resolve) => {
+      this.http
+        .get(this.baseUrl + `ficheHoraires/json?route=${lineId}`)
+        .subscribe(async (data: LineSchedule) => {
           resolve(data);
         });
     });
