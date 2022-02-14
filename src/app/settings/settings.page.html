@@ -5,56 +5,56 @@
 </ion-header>
 
 <ion-content>
-
   <div class="settingsDiv">
-
-    <ion-grid fixed>
+    <ion-grid>
 
       <ion-row>
-        <ion-col size="4">
+        <ion-col>
           <ion-icon name="language"></ion-icon>
         </ion-col>
-        <ion-item>
-        <ion-col size="8">
+        <ion-col>
+          <ion-item>
             <ion-label>Langue</ion-label>
-            <ion-select value="Français">
+            <ion-select value="Français" cancelText="Annuler" disabled>
               <ion-select-option value="Français" selected>Français</ion-select-option>
               <ion-select-option value="English">English</ion-select-option>
             </ion-select>
+          </ion-item>
         </ion-col>
-      </ion-item>
       </ion-row>
 
       <ion-row>
         <ion-col>
           <ion-icon name="bookmark-outline"></ion-icon>
         </ion-col>
-        <ion-item>
-          <ion-label>Page d'accueil</ion-label>
-          <ion-select value="Carte" multiple="true">
-            <ion-select-option value="Carte" selected>Carte</ion-select-option>
-            <ion-select-option value="Favoris">Favoris</ion-select-option>
-            <ion-select-option value="Itinéraire">Itinéraire</ion-select-option>
-            <ion-select-option value="Lignes">Lignes</ion-select-option>
-          </ion-select>
-        </ion-item>
+        <ion-col>
+          <ion-item>
+            <ion-label>Page d'accueil</ion-label>
+            <ion-select value="Carte" cancelText="Annuler">
+              <ion-select-option value="Carte" selected>Carte</ion-select-option>
+              <ion-select-option value="Favoris">Favoris</ion-select-option>
+              <ion-select-option value="Itinéraire">Itinéraire</ion-select-option>
+              <ion-select-option value="Lignes">Lignes</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
       </ion-row>
       
       <ion-row>
         <ion-col>
           <ion-icon name="invert-mode-outline"></ion-icon>
         </ion-col>
-        <ion-item>
-          <ion-label>Thème</ion-label>
-          <ion-select value="Sombre" multiple="true">
-            <ion-select-option value="Sombre" selected>Sombre</ion-select-option>
-            <ion-select-option value="Clair">Clair</ion-select-option>
-          </ion-select>
-        </ion-item>
+        <ion-col>
+          <ion-item>
+            <ion-label>Thème</ion-label>
+            <ion-select value="Sombre" cancelText="Annuler">
+              <ion-select-option value="Sombre" selected>Sombre</ion-select-option>
+              <ion-select-option value="Clair">Clair</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
       </ion-row>
 
     </ion-grid>
-
   </div>
-
 </ion-content>
