@@ -1,3 +1,4 @@
+import { LineSchedule } from './../interfaces/line-schedule';
 import { Line } from './../interfaces/line';
 import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -50,12 +51,28 @@ export class MapPage implements OnInit, OnDestroy {
    * Fetch stops from the API
    */
   async loadStops() {
-    (await this.api.getTramStopList()).features.forEach((stop) => {
-      this.overlays.stops.push(
-        Leaflet.marker(stop.geometry.coordinates, {
-          title: stop.properties.LIBELLE,
-        })
-      );
+    Object.entries(this.overlays).forEach(async ([key, value]) => {
+      if (key !== 'stops') {
+        this.api
+          .getLineSchedule(key)
+          .then(async (lineSchedule: LineSchedule) => {
+            lineSchedule['0'].arrets.forEach((stop) => {
+              this.overlays.stops.push(
+                Leaflet.circleMarker([stop.lat, stop.lon], {
+                  radius: 13,
+                  color: '#000',
+                  fillColor: '#fff',
+                  fillOpacity: 1,
+                  title: stop.stopName,
+                })
+                  .bindPopup(stop.stopName)
+                  .on('click', () => {
+                    this.map.setView([stop.lat, stop.lon], 15);
+                  })
+              );
+            });
+          });
+      }
     });
   }
 
@@ -67,7 +84,7 @@ export class MapPage implements OnInit, OnDestroy {
       for (let stop of this.overlays.stops) {
         if (
           !this.map.getBounds().contains(stop.getLatLng()) ||
-          this.map.getZoom() <= 14
+          this.map.getZoom() <= 13
         ) {
           this.map.removeLayer(stop);
         } else {
