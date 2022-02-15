@@ -7,7 +7,7 @@
 <ion-content>
 
   <ion-card class="card" *ngFor="let line of lineList">
-    <div class="summary">
+    <div class="summary" (click)="detail(line.id)">
       <div class="shortName" style="background-color:#{{line.color}}">
         {{ line.shortName }}
       </div>
@@ -15,9 +15,6 @@
         <label>{{ line.longName }}</label>
       </div>
     </div>
-    <ion-button (click)="detail(line.id)" expand="block" fill="clear">
-      <label (click)="changeDisplay()">{{textDisplay}}</label>
-    </ion-button>
     <ion-list *ngIf="lineListDetailCondition[line.id]">
       <div class="directionBtn" (click)="direction(line.id)">
         <label>Changer la direction</label> 

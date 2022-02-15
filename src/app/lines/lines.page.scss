@@ -70,7 +70,7 @@
     .directionBtn {
         display: table;
         color: var(--ion-color-red);
-        padding: 5% 0;
+        padding: 3% 0;
         margin: auto;
         font-size: small;
         font-weight: bold;
@@ -93,7 +93,7 @@
         margin: 1%;
 
         ion-icon {
-            padding-right: 2%;
+            transform: rotate(90deg);
         }
     }
 }
@@ -104,10 +104,21 @@
      * -------------------------------------------
      */
 
+     ion-content {
+        --ion-background-color: var(--ion-color-light);
+     }
+
+     ion-card {
+        background-color: white;
+        box-shadow: 0.25rem 0.5rem 1rem var(--ion-color-dark);
+     }
+
     .summary {
+        background-color: var(--ion-color-dark-constrast);
         display: flex;
         flex-wrap: nowrap;
-        color: black
+        color: black;
+        padding: 2%;
     }
 
     .longName {
@@ -118,42 +129,69 @@
         display: table;
     }
 
-    span {
+    ion-button {
+        width: fit-content;
+        margin: 1% auto;
+        color: var(--ion-color-red);
+        border: solid 2px var(--ion-color-red);
+        border-radius: 0.5rem;
+        font-size: small;
+        
+        &:hover {
+            color: var(--ion-color-red-tint);
+            border-color: var(--ion-color-red-tint);
+        }
+
+        label {
+            font-size: small;
+            font-weight: bold;
+        }
+    }
+
+    label {
         vertical-align:middle;
         display: table-cell;
     }
 
     .shortName {
-        color: #FFFFFF;
+        color: white;
         text-align: center;
         padding: 6px 10px;
         width: 30px;
         height: 30px;
         border-radius: 20px;
-        margin: 3px;
+        margin: auto 1%;
         font-size: small;
         font-weight: bold;
     }
 
-    .directionBut {
-        margin-left: 5px;
-        font-size: smaller;
-        margin-right: 3px;
+    .directionBtn {
         display: table;
+        color: var(--ion-color-red);
+        padding: 3% 0;
+        margin: auto;
+        font-size: small;
+        font-weight: bold;
+        
+        &:hover {
+            color: var(--ion-color-red-tint);
+            border-color: var(--ion-color-red-tint);
+        }
+
+        ion-icon {
+            display: table-cell;
+            font-size: large;
+            padding-left: 2%;
+        }
     }
 
-    .icon {
-        margin-left: 3px;
-        vertical-align:middle;
-        display: table-cell;
-    }
+    ion-item {
+        --ion-item-background: white;  
+        border-radius: 0.5rem;
+        margin: 1%;
 
-    .item {
-        height: 40px;
-    }
-
-    .label {
-        margin: 0;
-        font-size: large;
+        ion-icon {
+            transform: rotate(90deg);
+        }
     }
 }

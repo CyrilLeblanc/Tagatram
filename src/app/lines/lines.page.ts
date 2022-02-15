@@ -14,7 +14,6 @@ export class LinesPage implements OnInit {
   lineListDetailCondition = [];
   stopList = {};
   stopListNames;
-  textDisplay = "Afficher tous les arrêts"
 
   constructor(
     private api: ApiMetromobiliteService
@@ -46,14 +45,6 @@ export class LinesPage implements OnInit {
 
   direction(arg) {
     this.stopList[arg].reverse();
-  }
-
-  changeDisplay() {
-    if (this.textDisplay == "Cacher tous les arrêts") {
-      this.textDisplay = "Afficher tous les arrêts";
-    } else {
-      this.textDisplay = "Cacher tous les arrêts";
-    }
   }
   
 }
