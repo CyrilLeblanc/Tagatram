@@ -68,7 +68,7 @@ export class ApiMetromobiliteService {
     });
   }
 
-  async getTramStopList(): Promise<Stops> {
+  async getStopList(): Promise<Stops> {
     return new Promise(async (resolve) => {
       const cache = await this.storage.get('cache_tramStopList');
       if (cache) {
@@ -76,7 +76,7 @@ export class ApiMetromobiliteService {
         resolve(cache);
       } else {
         this.http
-          .get(this.baseUrl + 'stops/json?types=arret&codes=T')
+          .get(this.baseUrl + 'bbox/json?types=arret')
           .subscribe(async (data: Stops) => {
             console.debug('API: tramStopList loaded from API', await data);
             this.storage.set('cache_tramStopList', data);
