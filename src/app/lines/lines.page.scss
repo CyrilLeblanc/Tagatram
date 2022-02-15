@@ -27,7 +27,7 @@ span {
     font-weight: bold;
 }
 .directionBut {
-    text-align: right;
+    margin-left: 5px;
     font-size: smaller;
     margin-right: 3px;
     display: table;
@@ -40,6 +40,7 @@ span {
 .item {
     height: 40px;
 }
-.label{
+.label {
     margin: 0;
+    font-size: large;
 }
