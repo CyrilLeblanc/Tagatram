@@ -23,8 +23,18 @@
   </div>
   <div class="dateTimeDiv">
     <ion-label>Date & Heure</ion-label>
-    <ion-item>
-      <ion-label>Awesome Label</ion-label>
+    <ion-item button="true" id="open-date-input">
+      <ion-label>Date</ion-label>
+      <ion-text slot="end">{{ dateValue }}</ion-text>
+      <ion-popover trigger="open-date-input" show-backdrop="false">
+        <ng-template>
+          <ion-datetime
+            #popoverDatetime
+            presentation="date"
+            (ionChange)="dateValue = formatDate(popoverDatetime.value)"
+          ></ion-datetime>
+        </ng-template>
+      </ion-popover>
     </ion-item>
     <ion-item>
       <ion-select value="goAfter" class="selectAfterBefore"
@@ -33,8 +43,18 @@
         <ion-select-option value="arriveBefore">Arriver avant</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-item>
-      <ion-datetime display-format="HH:mm" locale="fr-FR" presentation="time"></ion-datetime>
+    <ion-item button="true" id="open-time-input">
+      <ion-label>Heure</ion-label>
+      <ion-text slot="end">{{ timeValue }}</ion-text>
+      <ion-popover trigger="open-time-input" show-backdrop="false">
+        <ng-template>
+          <ion-datetime
+            #popoverDatetime
+            presentation="time"
+            (ionChange)="timeValue = formatDate(popoverDatetime.value)"
+          ></ion-datetime>
+        </ng-template>
+      </ion-popover>
     </ion-item>
   </div>
   <div class="pmrAccessDiv">
