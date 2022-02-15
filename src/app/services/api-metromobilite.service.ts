@@ -4,97 +4,140 @@ import { Storage } from '@ionic/storage';
 
 import { LineDescription } from './../interfaces/line-description';
 import { Line } from '../interfaces/line';
+import { Stops } from '../interfaces/stops';
+import { LineSchedule } from './../interfaces/line-schedule';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiMetromobiliteService {
-  private baseUrl: string = 'http://data.mobilites-m.fr/api/';
-  private cache: { [key: string]: any } = {
-    lineList: null,
-  };
+  private baseUrl: string = 'https://data.mobilites-m.fr/api/';
 
   constructor(private http: HttpClient, private storage: Storage) {
     this.storage.create();
-    this.storage.get('cache').then((data) => {
-      if (data !== null) this.cache = data;
-    });
   }
 
-  /**
-   * TODO make callable in data tree
-   * generic get function to fetch data
-   *  - from cache if cachable and available or
-   *  - from this instance if available or
-   *  - from API
-   * @param key name of value. If in arborescence separate var name by ':' example : 'lineDescription:SEM_C'
-   * @param relativeUrlPath
-   * @param callback treatement to data (must return data)
-   * @returns Promise
-   */
-  private get(key: string, relativeUrlPath: string, callback?: Function): Promise<any> {
-    let cachable: boolean = this.cache[key] !== undefined;
-
+  async getLineList(): Promise<Line[]> {
     return new Promise(async (resolve) => {
-      if (cachable && this.cache[key] !== null) {
-        // if cachable and available in cache
-        console.info(`API: ${key} loaded from cache`, this.cache[key]);
-        resolve(this.cache[key]);
-        return;
-      }
-      if (!cachable || this.cache[key] === null) {
-        // if cachable or unavailable in cache
+      const cache = await this.storage.get('cache_lineList');
+      if (cache) {
+        console.debug('API: lineList loaded from cache', await cache);
+        resolve(cache);
+      } else {
         this.http
-          .get(this.baseUrl + relativeUrlPath)
-          .subscribe(async (data) => {
-            if (callback) data = callback(data);
-            if (cachable) {
-              this.cache[key] = data;
-              await this.storage.set('cache', this.cache);
-            } else {
-              this[key] = data;
-            }
-            console.info(`API: ${key} loaded from API`, this[key]);
+          .get(this.baseUrl + 'routers/default/index/routes')
+          .subscribe(async (data: Line[]) => {
+            console.debug('API: lineList loaded from API', await data);
+            this.storage.set('cache_lineList', data);
             resolve(data);
-            return;
           });
       }
     });
   }
 
-  async getLineList(): Promise<Line[]> {
-    return (await this.get(
-      'lineList',
-      'routers/default/index/routes'
-    )) as Line[];
-  }
-
   async getTramLineList() {
-    let tramLineList: Line[] = [];
-    (await this.getLineList()).forEach((line: Line) => {
-      if (line.mode === 'TRAM') {
-        tramLineList.push(line);
-      }
+    return (await this.getLineList()).filter((line: Line) => {
+      return line.mode === 'TRAM';
     });
-    return tramLineList;
   }
 
   async getLineDescription(id: string): Promise<LineDescription> {
-    id = id.replace(':', '_');
-    return (await this.get(
-      `lineDescription:${id}`,
-      'lines/json?types=ligne&codes=' + id,
-      (data: LineDescription) => {
-        // reverse coordinates values
-        let coords = data.features[0].geometry.coordinates[0];
-        coords.forEach((coord: [number, number], index) => {
-          let temp = coord[0];
-          coord[0] = coord[1];
-          coord[1] = temp;
-          data.features[0].geometry.coordinates[0][index] = coord;
-        });
-        return data;
+    return new Promise(async (resolve) => {
+      const cache = await this.storage.get('cache_lineDescription_' + id);
+      if (cache) {
+        console.debug(
+          `API: lineDescription ${id} loaded from cache`,
+          await cache
+        );
+        resolve(cache);
+      } else {
+        this.http
+          .get(
+            this.baseUrl +
+              `lines/json?types=ligne&codes=${id.replace(':', '_')}`
+          )
+          .subscribe(async (data: LineDescription) => {
+            data.features[0].geometry.coordinates[0] = this.reverseCoords(
+              data.features[0].geometry.coordinates[0]
+            );
+            console.debug(`API: lineDescription loaded from API`, await data);
+            this.storage.set(`cache_lineDescription_${id}`, data);
+            resolve(data);
+          });
       }
-    )) as LineDescription;
+    });
+  }
+
+  async getTramStopList(): Promise<Stops> {
+    return new Promise(async (resolve) => {
+      const cache = await this.storage.get('cache_tramStopList');
+      if (cache) {
+        console.debug('API: tramStopList loaded from cache', await cache);
+        resolve(cache);
+      } else {
+        this.http
+          .get(this.baseUrl + 'stops/json?types=arret&codes=T')
+          .subscribe(async (data: Stops) => {
+            console.debug('API: tramStopList loaded from API', await data);
+            this.storage.set('cache_tramStopList', data);
+            resolve(data);
+          });
+      }
+    });
+  }
+
+  /**
+   * @description alias of getLineSchedule()
+   * @deprecated use getLineSchedule() instead
+   */
+  async getStopByLine(lineId: string): Promise<LineSchedule> {
+    return this.getLineSchedule(lineId);
+  }
+
+  async getLineSchedule(lineId: string): Promise<LineSchedule> {
+    return new Promise(async (resolve) => {
+      const cache = await this.storage.get('cache_lineSchedule_' + lineId);
+      if (cache) {
+        console.debug(
+          `API: lineSchedule ${lineId} loaded from cache`,
+          await cache
+        );
+        resolve(cache);
+      } else {
+        this.http
+          .get(
+            this.baseUrl +
+              `ficheHoraires/json?route=${lineId}`
+          )
+          .subscribe(async (data: LineSchedule) => {
+            console.debug(`API: lineSchedule loaded from API`, data);
+            this.storage.set(`cache_lineSchedule_${lineId}`, data);
+            resolve(data);
+          });
+      }
+    });
+  }
+
+  /**
+   * reverse a coordinate
+   * @param item
+   * @returns
+   */
+  reverseCoord(item: [number, number]) {
+    let temp = item[0];
+    item[0] = item[1];
+    item[1] = temp;
+    return item;
+  }
+
+  /**
+   * reverse a list of coordinate
+   * @param items
+   */
+  reverseCoords(items: [number, number][]) {
+    items.forEach((item, index) => {
+      items[index] = this.reverseCoord(items[index]);
+    });
+    return items;
   }
 }
