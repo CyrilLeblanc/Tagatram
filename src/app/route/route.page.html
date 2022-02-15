@@ -9,33 +9,19 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button class="stopButton" fill="clear">Départ</ion-button>
-          
+          <ion-button class="stopButton" fill="clear" (click)="openModalDeparture()">Départ</ion-button>
 <!-- 
-          <ion-modal [isOpen]="true">
-            <ng-template>
-              <ion-content>
-                <ion-searchbar [(ngModel)]="departure" (ionChange)="start()"></ion-searchbar>
-                <ion-list>
-                  <ion-item *ngFor="let stop of allStops">
-                    <ion-label>{{ stop.stopName }}</ion-label>
-                  </ion-item>
-                </ion-list>
-              </ion-content>
-            </ng-template>
-          </ion-modal> -->
-
           <ion-list>
             <ion-item *ngFor="let stop of allStops">
               <ion-label class="city">{{ stop.parentStation.city }}</ion-label>
               <ion-label class="stopName">{{ stop.parentStation.name }}</ion-label>
             </ion-item>
-          </ion-list>
+          </ion-list> -->
           
-          <ion-button class="stopButton" fill="clear">Arrivée</ion-button>
+          <ion-button class="stopButton" fill="clear" (click)="openModalArrival()">Arrivée</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button class="reverseButton" fill="clear">
+          <ion-button class="reverseButton" fill="clear" (click)="reverseStops">
             <ion-icon name="swap-vertical"></ion-icon>
           </ion-button>
         </ion-col>

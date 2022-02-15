@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { ChoiceStopPage } from '../choice-stop/choice-stop.page';
 import { ApiMetromobiliteService } from '../services/api-metromobilite.service';
 
 @Component({
@@ -11,11 +12,10 @@ export class RoutePage implements OnInit {
 
   favoriteTrip: boolean = false;
   PMRaccess: boolean = false;
-  departure: String = '';
-  arrival: String = '';
   listStops = {};
   listLine;
   allStops = [];
+  selectedStop;
 
   constructor(
     private api: ApiMetromobiliteService,
@@ -44,9 +44,29 @@ export class RoutePage implements OnInit {
 
     });
     console.log(this.listStops);
-
-    
   }
+
+  reverseStops() {
+    console.log(this.selectedStop);
+  }
+
+  async openModalDeparture() {
+    const modal = await this.modalCtrl.create({
+      component: ChoiceStopPage,componentProps: {  
+        'from': "departure"     
+      }   
+    });
+    return await modal.present();
+   }
+
+   async openModalArrival() {
+    const modal = await this.modalCtrl.create({
+      component: ChoiceStopPage,componentProps: {  
+        'from': "arrival"     
+      }   
+    });
+    return await modal.present();
+   }
 
   segmentChanged() {
     if (this.favoriteTrip) {
@@ -55,9 +75,6 @@ export class RoutePage implements OnInit {
     else { this.favoriteTrip = true; }
   }
 
-  start() {
-    console.log(this.departure);
-  }
 
 
 

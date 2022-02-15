@@ -1,9 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>choiceStop</ion-title>
+    <ion-title>{{message}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <div class="fixed">
+    <ion-button class="btnClose" (click)="dismiss()" fill="clear">X</ion-button>
+    <ion-searchbar class="searchBar" [(ngModel)]="searched" (ionChange)="searchBar()"></ion-searchbar>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let stop of allStops">
+      <span (click)="stopChoosen(stop.stopId)">
+        <ion-label class="stopName">{{ stop.parentStation.name }}</ion-label>
+        <ion-label class="city">{{ stop.parentStation.city }}</ion-label>
+      </span>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
+
+<!-- | stopFilter: searched -->

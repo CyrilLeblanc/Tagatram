@@ -9,10 +9,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import { ChoiceStopPageModule } from './choice-stop/choice-stop.module';
+import { StopFilterPipe } from './pipes/stop-filter.pipe';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, StopFilterPipe],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ChoiceStopPageModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Storage],
   bootstrap: [AppComponent],
 })
