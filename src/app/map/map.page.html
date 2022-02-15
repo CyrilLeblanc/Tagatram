@@ -1,11 +1,11 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-searchbar placeholder="Addresse, arret.." (ionInput)="searchUpdate($event.target.value)" [(ngModel)]="searchbar"></ion-searchbar>
-    <ion-button slot="end" (click)="locate()">
-      <ion-icon name="locate"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
-</ion-header>
+<div class="header">
+  <ion-searchbar placeholder="Chercher un lieu, un arrêt..." 
+    (ionInput)="searchUpdate($event.target.value)" [(ngModel)]="searchbar">
+  </ion-searchbar>
+  <ion-button (click)="locate()" fill="clear">
+    <ion-icon name="locate"></ion-icon>
+  </ion-button>
+</div>
 
 <ion-content>
   <div id="map"></div>
