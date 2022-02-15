@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Paramètres</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="settingsDiv">
+    <ion-grid>
+
+      <ion-row>
+        <ion-col>
+          <ion-icon name="language"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Langue</ion-label>
+            <ion-select class="selectLanguage" [interfaceOptions]="customPopoverOptions" interface="popover"
+                [(ngModel)]="selectLanguage" (ionChange)="dynamicLanguage()" disabled>
+                <ion-select-option [value]="language.class" *ngFor="let language of languages;let i = indexs">
+                  {{language.name}}
+                </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-icon name="bookmark-outline"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Page d'accueil</ion-label>
+            <ion-select class="selectMainPage" [interfaceOptions]="customPopoverOptions" interface="popover"
+                [(ngModel)]="selectMainPage" (ionChange)="dynamicMainPage()">
+                <ion-select-option class="selectMainPageOption" [value]="page.class" *ngFor="let page of mainPage;let i = indexs">
+                  {{page.name}}
+                </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col>
+          <ion-icon name="invert-mode-outline"></ion-icon>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Thème</ion-label>
+            <ion-select class="selectTheme" [interfaceOptions]="customPopoverOptions" interface="popover"
+                [(ngModel)]="selectTheme" (ionChange)="dynamicTheme()">
+                <ion-select-option class="selectThemeOption" [value]="theme.class" *ngFor="let theme of themeColor;let i = indexs">
+                  {{theme.name}}
+                </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </div>
+</ion-content>

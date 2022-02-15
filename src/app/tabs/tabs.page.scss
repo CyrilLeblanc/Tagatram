@@ -1,1 +1,26 @@
+@import "../../theme/dark_theme.scss";
+@import "../../theme/light_theme.scss";
 
+@media (prefers-color-scheme: dark) {
+    /*
+     * Darks Colors
+     * -------------------------------------------
+     */
+
+    ion-tab-button {
+        --color: var(--ion-color-red);
+        --color-selected: var(--ion-color-red-tint);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    /*
+     * Lights Colors
+     * -------------------------------------------
+     */
+
+    ion-tab-button {
+        --color: var(--ion-color-red);
+        --color-selected: var(--ion-color-red-tint);
+    }
+}
