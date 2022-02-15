@@ -1,3 +1,4 @@
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { LineSchedule } from './../interfaces/line-schedule';
 import { Line } from './../interfaces/line';
 import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
@@ -15,18 +16,26 @@ export class MapPage implements OnInit, OnDestroy {
     stops: [],
   };
 
-  constructor(private api: ApiMetromobiliteService) {}
+  constructor(
+    private api: ApiMetromobiliteService,
+    private geolocation: Geolocation
+  ) {}
 
   ngOnDestroy() {
     this.map.remove();
   }
+
   ngOnInit() {}
 
   async ionViewDidEnter() {
+    // return if map is already loaded
+    if (this.map) return;
+
     // load the map
     this.map = Leaflet.map('map').setView([45.1709, 5.7395], 12);
     Leaflet.tileLayer(
       'https://data.mobilites-m.fr/carte-dark/{z}/{x}/{y}.png'
+      //'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     ).addTo(this.map);
 
     // display tram lines
@@ -91,6 +100,26 @@ export class MapPage implements OnInit, OnDestroy {
           this.map.addLayer(stop);
         }
       }
+    });
+  }
+
+  /**
+   * @description set the map view to the user position
+   */
+  locate() {
+    this.geolocation.watchPosition().subscribe((resp: GeolocationPosition) => {
+      this.overlays.position = Leaflet.circleMarker(
+        [resp.coords.latitude, resp.coords.longitude],
+        {
+          radius: 13,
+          fillOpacity: 1,
+          title: 'Vous êtes ici',
+        }
+      ).addTo(this.map);
+      this.map.setView(
+        [resp.coords.latitude, resp.coords.longitude],
+        resp.coords.accuracy / 100000
+      );
     });
   }
 }
