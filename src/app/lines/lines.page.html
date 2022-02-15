@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lignes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="card" *ngFor="let line of lineList">
+    <div class="summary" (click)="detail(line.id)">
+      <div class="shortName" style="background-color:#{{line.color}}">
+        {{ line.shortName }}
+      </div>
+      <div class="longName">
+        <span>{{ line.longName }}</span>
+      </div>
+    </div>
+    <ion-list class="detailStops" *ngIf="lineListDetailCondition[line.id]">
+      <div class="directionBut" (click)="direction(line.id)">changer la direction 
+        <ion-icon class="icon" name="swap-vertical"></ion-icon></div>
+      <ion-item class="item" *ngFor="let stop of stopList[line.id]">
+        <ion-label class="label">{{ stop.stopName }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+</ion-content>

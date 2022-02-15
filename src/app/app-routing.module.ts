@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./map/map.module').then( m => m.MapPageModule)
   },
   {
+    path: 'lines',
+    loadChildren: () => import('./lines/lines.module').then( m => m.LinesPageModule)
+  },
+  {
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   },
