@@ -1,0 +1,73 @@
+@import "../../theme/dark_theme.scss";
+@import "../../theme/light_theme.scss";
+
+@media (prefers-color-scheme: dark) {
+    /*
+     * Darks Colors
+     * -------------------------------------------
+     */
+
+     ion-content {
+        --ion-background-color: var(--ion-color-dark-tint);
+     }
+
+     .stopButton {
+        color: var(--ion-color-red-tint);
+        border: solid 2px var(--ion-color-red);
+        border-radius: 0.5rem;
+        width: 175%;
+        height: 4rem;
+     }
+
+     .reverseButton {
+        float: right;
+        color: var(--ion-color-red-tint);
+        border: solid 2px var(--ion-color-red-tint);
+        border-radius: 0.5rem;
+        width: 25%;
+        height: 8.5rem;
+     }
+
+     ion-label {
+        color: var(--ion-color-red);
+     }
+
+     div {
+        background-color: var(--ion-color-dark);
+        margin: 5%;
+        padding: 2%;
+        border-radius: 0.5rem;
+        box-shadow: 0.25rem 0.5rem 1rem black;
+     }
+}
+
+@media (prefers-color-scheme: light) {
+    /*
+     * Lights Colors
+     * -------------------------------------------
+     */
+
+     ion-content {
+        --ion-background-color: var(--ion-color-light);
+     }
+
+     ion-label {
+        color: var(--ion-color-red);
+     }
+
+     ion-button {
+        color: var(--ion-color-red-tint);
+        border: solid 2px var(--ion-color-red);
+        border-radius: 0.5rem;
+        width: 100%;
+        height: 4rem;
+     }
+
+     div {
+        background-color: var(--ion-color-dark-contrast);
+        margin: 5%;
+        padding: 2%;
+        border-radius: 0.5rem;
+        box-shadow: 0.25rem 0.5rem 1rem black;
+    }
+}

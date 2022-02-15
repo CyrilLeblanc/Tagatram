@@ -17,6 +17,15 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'route',
+        loadChildren: () => import('../route/route.module').then(m => m.RoutePageModule)
+      },
+      {
+        path: '',
+        redirectTo: '/tabs/route',
+        pathMatch: 'full'
+      },
+      {
         path: 'settings',
         loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
       },
