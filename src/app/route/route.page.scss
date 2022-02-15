@@ -1,6 +1,15 @@
 @import "../../theme/dark_theme.scss";
 @import "../../theme/light_theme.scss";
 
+
+
+.city {
+   font-size: smaller;
+   width: min-content;
+}
+
+
+
 @media (prefers-color-scheme: dark) {
     /*
      * Darks Colors

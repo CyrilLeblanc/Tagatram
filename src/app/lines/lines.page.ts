@@ -29,7 +29,7 @@ export class LinesPage implements OnInit {
 
     this.lineList.forEach(async line => {
       this.lineListDetailCondition[line.id] = false;
-      this.api.getStopByLine(line.id).then(async stops => {
+      this.api.getLineSchedule(line.id).then(async stops => {
         stops[0].arrets.forEach(name => {
           name.stopName = name.stopName.replace(name.stopName.split(' ')[0], '');
         });

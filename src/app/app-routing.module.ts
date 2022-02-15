@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'route',
     loadChildren: () => import('./route/route.module').then( m => m.RoutePageModule)
+  },
+  {
+    path: 'choice-stop',
+    loadChildren: () => import('./choice-stop/choice-stop.module').then( m => m.ChoiceStopPageModule)
   }
 ];
 @NgModule({
