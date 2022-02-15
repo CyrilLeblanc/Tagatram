@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoutePage implements OnInit {
 
+  favoriteTrip: boolean = false;
+  PMRaccess: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
   }
+
+
+  segmentChanged() {
+    if (this.favoriteTrip) {
+      this.favoriteTrip = false;
+    }
+    else { this.favoriteTrip = true; }
+    console.log(this.favoriteTrip, this.PMRaccess);
+  }
+
 
 }

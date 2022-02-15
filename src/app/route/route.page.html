@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="stopsDiv">
+  <div class="stopsDiv" *ngIf="!favoriteTrip">
     <ion-grid>
       <ion-row>
         <ion-col>
@@ -14,13 +14,20 @@
         </ion-col>
         <ion-col>
           <ion-button class="reverseButton" fill="clear">
-            <ion-icon name="arrow-down-outline"></ion-icon>
-            <ion-icon name="arrow-up-outline"></ion-icon>
+            <ion-icon name="swap-vertical"></ion-icon>
           </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
+
+  <div *ngIf="favoriteTrip">
+    <ion-list>
+      <ion-item>
+        <ion-label>Pokémon Yellow</ion-label>
+    </ion-list>
+  </div>
+
   <div class="dateTimeDiv">
     <ion-label>Date & Heure</ion-label>
     <ion-item button="true" id="open-date-input">
@@ -57,22 +64,33 @@
       </ion-popover>
     </ion-item>
   </div>
+
   <div class="pmrAccessDiv">
     <ion-label>Accès PMR</ion-label>
-    <ion-toggle></ion-toggle>
+    <ion-toggle [(ngModel)]="PMRaccess"></ion-toggle>
   </div>
+
   <div class="bottomDiv">
+
     <ion-button fill="clear">
       <ion-icon name="heart-outline"></ion-icon>
     </ion-button>
-    <ion-segment value="Nouveau" (ionChange)="segmentChanged($event)">
-      <ion-segment-button value="new">
+
+    <ion-segment value="new" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="new" *ngIf="favoriteTrip">
         <ion-label>Nouveau</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="favorites">
+      <ion-segment-button disabled *ngIf="!favoriteTrip">
+        <ion-label>Nouveau</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="favorites" *ngIf="!favoriteTrip">
+        <ion-label>Favoris</ion-label>
+      </ion-segment-button>
+      <ion-segment-button disabled *ngIf="favoriteTrip">
         <ion-label>Favoris</ion-label>
       </ion-segment-button>
     </ion-segment>
+
     <ion-button fill="clear">
       <ion-icon name="navigate-outline"></ion-icon>
       Go
