@@ -21,13 +21,11 @@ export class ApiMetromobiliteService {
     return new Promise(async (resolve) => {
       const cache = await this.storage.get('cache_lineList');
       if (cache) {
-        console.debug('API: lineList loaded from cache', await cache);
         resolve(cache);
       } else {
         this.http
           .get(this.baseUrl + 'routers/default/index/routes')
           .subscribe(async (data: Line[]) => {
-            console.debug('API: lineList loaded from API', await data);
             this.storage.set('cache_lineList', data);
             resolve(data);
           });
@@ -45,10 +43,6 @@ export class ApiMetromobiliteService {
     return new Promise(async (resolve) => {
       const cache = await this.storage.get('cache_lineDescription_' + id);
       if (cache) {
-        console.debug(
-          `API: lineDescription ${id} loaded from cache`,
-          await cache
-        );
         resolve(cache);
       } else {
         this.http
@@ -60,7 +54,6 @@ export class ApiMetromobiliteService {
             data.features[0].geometry.coordinates[0] = this.reverseCoords(
               data.features[0].geometry.coordinates[0]
             );
-            console.debug(`API: lineDescription loaded from API`, await data);
             this.storage.set(`cache_lineDescription_${id}`, data);
             resolve(data);
           });
@@ -72,13 +65,11 @@ export class ApiMetromobiliteService {
     return new Promise(async (resolve) => {
       const cache = await this.storage.get('cache_tramStopList');
       if (cache) {
-        console.debug('API: tramStopList loaded from cache', await cache);
         resolve(cache);
       } else {
         this.http
           .get(this.baseUrl + 'bbox/json?types=arret')
           .subscribe(async (data: Stops) => {
-            console.debug('API: tramStopList loaded from API', await data);
             this.storage.set('cache_tramStopList', data);
             resolve(data);
           });
@@ -98,10 +89,6 @@ export class ApiMetromobiliteService {
     return new Promise(async (resolve) => {
       const cache = await this.storage.get('cache_lineSchedule_' + lineId);
       if (cache) {
-        console.debug(
-          `API: lineSchedule ${lineId} loaded from cache`,
-          await cache
-        );
         resolve(cache);
       } else {
         this.http
@@ -110,7 +97,6 @@ export class ApiMetromobiliteService {
               `ficheHoraires/json?route=${lineId}`
           )
           .subscribe(async (data: LineSchedule) => {
-            console.debug(`API: lineSchedule loaded from API`, data);
             this.storage.set(`cache_lineSchedule_${lineId}`, data);
             resolve(data);
           });
