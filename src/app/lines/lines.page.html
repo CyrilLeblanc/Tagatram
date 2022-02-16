@@ -12,14 +12,17 @@
         {{ line.shortName }}
       </div>
       <div class="longName">
-        <span>{{ line.longName }}</span>
+        <label>{{ line.longName }}</label>
       </div>
     </div>
-    <ion-list class="detailStops" *ngIf="lineListDetailCondition[line.id]">
-      <div class="directionBut" (click)="direction(line.id)">changer la direction 
-        <ion-icon class="icon" name="swap-vertical"></ion-icon></div>
-      <ion-item class="item" *ngFor="let stop of stopList[line.id]">
-        <ion-label class="label">{{ stop.stopName }}</ion-label>
+    <ion-list *ngIf="lineListDetailCondition[line.id]">
+      <div class="directionBtn" (click)="direction(line.id)">
+        <label>Changer la direction</label> 
+        <ion-icon name="swap-vertical"></ion-icon>
+      </div>
+      <ion-item *ngFor="let stop of stopList[line.id]">
+        <ion-icon name="git-commit-outline"></ion-icon>
+        <label>{{ stop.stopName }}</label>
       </ion-item>
     </ion-list>
   </ion-card>
