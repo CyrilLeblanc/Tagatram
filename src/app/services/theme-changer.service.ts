@@ -4,12 +4,12 @@ import { Storage } from '@ionic/storage';
   providedIn: 'root',
 })
 export class ThemeChangerService {
-  private theme: string = 'dark';
+  private theme: string = 'light';
 
   constructor(private storage: Storage) {
     this.storage.create();
     this.storage.get('theme').then((val) => {
-      this.setTheme(val ? val : 'dark');
+      this.setTheme(val ? val : 'light');
     });
   }
 
