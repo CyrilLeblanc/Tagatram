@@ -1,12 +1,59 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-searchbar placeholder="Addresse.."></ion-searchbar>
-    <ion-button slot="end">
-      <ion-icon name="locate"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
-</ion-header>
+<div class="header">
+  <ion-searchbar placeholder="Chercher un lieu, un arrêt..." 
+    (ionInput)="searchUpdate($event.target.value)" [(ngModel)]="searchbar">
+  </ion-searchbar>
+  <ion-button (click)="locate()" fill="clear">
+    <ion-icon name="locate"></ion-icon>
+  </ion-button>
+</div>
 
 <ion-content>
   <div id="map"></div>
 </ion-content>
+
+<div class="footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+          <ion-icon name="subway-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+          <ion-icon name="heart-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+          <ion-icon name="star-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <label>Tram</label>
+      </ion-col>
+      <ion-col>
+        <label>Favoris</label>
+      </ion-col>
+      <ion-col>
+          <label>Personnaliser</label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <ion-buttons>
+    <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+      <ion-icon name="subway-outline"></ion-icon>
+      <ion-label>Tram</ion-label>
+    </ion-button>
+    <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+      <ion-icon name="heart-outline"></ion-icon>
+      <ion-label>Favoris</ion-label>
+    </ion-button>
+    <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+      <ion-icon name="star-outline"></ion-icon>
+      <ion-label>Personnaliser</ion-label>
+    </ion-button>
+  </ion-buttons> -->
+</div>
