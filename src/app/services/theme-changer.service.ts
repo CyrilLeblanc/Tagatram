@@ -9,7 +9,7 @@ export class ThemeChangerService {
   constructor(private storage: Storage) {
     this.storage.create();
     this.storage.get('theme').then((val) => {
-      this.setTheme(val);
+      this.setTheme(val ? val : 'dark');
     });
   }
 
