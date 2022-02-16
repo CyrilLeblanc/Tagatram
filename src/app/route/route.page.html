@@ -32,7 +32,7 @@
   <div class="dateTimeDiv">
     <ion-label>Date & Heure</ion-label>
     <ion-item button="true" id="open-date-input-1">
-      <ion-label>Date</ion-label>
+      <ion-label>{{ dateString }}</ion-label>
       <ion-text slot="end">{{ dateValue }}</ion-text>
       <ion-popover trigger="open-date-input-1" show-backdrop="false">
         <ng-template>
@@ -52,7 +52,7 @@
       </ion-select>
     </ion-item>
     <ion-item button="true" id="open-time-input-2">
-      <ion-label>Heure</ion-label>
+      <ion-label>{{ timeString }}</ion-label>
       <ion-text slot="end">{{ timeValue }}</ion-text>
       <ion-popover trigger="open-time-input-2" show-backdrop="false" #popOverTime>
         <ng-template>

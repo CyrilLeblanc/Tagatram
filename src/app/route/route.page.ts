@@ -25,8 +25,8 @@ export class RoutePage implements OnInit {
   hourSelected: number;
   daySelected: number;
   momentSelected: number;
-  dateValue: number;
-  timeValue: number;
+  timeString: String = 'Date';
+  dateString: String = 'Heure';
 
   constructor(
     private api: ApiMetromobiliteService,
@@ -118,37 +118,21 @@ export class RoutePage implements OnInit {
   }
 
   formatTime(arg) {
-    console.log(arg);
     let time = Date.parse(arg);
     this.hourSelected = time % 86400000;
     this.momentSelected = this.daySelected + this.hourSelected;
+    let timeDate = new Date(this.hourSelected);
+    this.timeString = timeDate.getHours() + ' : ' + timeDate.getMinutes();
   }
 
   formatDate(arg) {
-    console.log(arg);
     let date = Date.parse(arg);
-    let hour = date % 864000000;
-    this.daySelected = date - hour;
-    this.momentSelected = this.daySelected + this.hourSelected;
-  }
-/* 
-  currentDate(){
-    let current = Date.now();
-    console.log(current);
-    console.log(new Date(current));
-    current += 86400000;
-    console.log(current);
-    console.log(new Date(current));
-    let hourCurrent = current % 86400000;
-    console.log(hourCurrent);
-    console.log(new Date(hourCurrent));
-    let dayCurrent = current - hourCurrent;
-    console.log(dayCurrent);
-    console.log(new Date(dayCurrent));
-  }
- */
-  
+    this.daySelected = new Date(date).setHours(0, 0, 0, 0);
+    let dayDate = new Date(this.daySelected)
+    let mois = dayDate.getMonth() + 1;
+    this.dateString = dayDate.getDate() +'/'+ mois +'/'+ dayDate.getFullYear();
 
+  }
 
 
 
