@@ -14,16 +14,19 @@ export class ChoiceStopPage implements OnInit {
   allStops = [];
   searched: String = '';
   from: string;
-  message: string = ''
-;
+  message: string = '';
+  selectedStop;
+
+
   constructor(
     private api: ApiMetromobiliteService,
-    public viewCtrl: ModalController
+    public viewCtrl: ModalController,
     ) { }
 
   ngOnInit() {
     this.initialisation();
     this.displayMessage();
+    this.selectedStop = null;
   }
 
   async initialisation() {
@@ -51,9 +54,8 @@ export class ChoiceStopPage implements OnInit {
   }
 
   stopChoosen(data) {
-    this.viewCtrl.dismiss({
-      'selectedStop': data
-    });
+    this.selectedStop = data;
+    this.dismiss();
   }
 
   displayMessage() {
@@ -66,7 +68,10 @@ export class ChoiceStopPage implements OnInit {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({
+      'from': this.from,
+      'selectedStop': this.selectedStop
+    });
   }
 
 }

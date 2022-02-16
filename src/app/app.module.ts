@@ -13,7 +13,7 @@ import { ChoiceStopPageModule } from './choice-stop/choice-stop.module';
 import { StopFilterPipe } from './pipes/stop-filter.pipe';
 
 @NgModule({
-  declarations: [AppComponent, StopFilterPipe],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ChoiceStopPageModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Storage],

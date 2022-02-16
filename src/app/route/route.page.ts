@@ -16,10 +16,14 @@ export class RoutePage implements OnInit {
   listLine;
   allStops = [];
   selectedStop;
+  depart: string = 'Départ';
+  arrivee: string = 'Arrivée';
+  startStop;
+  endStop;
 
   constructor(
     private api: ApiMetromobiliteService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
   ) { }
 
   ngOnInit() {
@@ -47,7 +51,11 @@ export class RoutePage implements OnInit {
   }
 
   reverseStops() {
-    console.log(this.selectedStop);
+    let temp = this.startStop;
+    this.startStop = this.endStop;
+    this.endStop = temp;
+    this.arrivee = this.getStopNameFromStopId(this.endStop);
+    this.depart = this.getStopNameFromStopId(this.startStop);
   }
 
   async openModalDeparture() {
@@ -56,23 +64,40 @@ export class RoutePage implements OnInit {
         'from': "departure"     
       }   
     });
-    return await modal.present();
+    modal.present();
+    const { data } = await modal.onWillDismiss();
+    this.startStop = data.selectedStop;
+    this.depart = this.getStopNameFromStopId(data.selectedStop);
    }
 
-   async openModalArrival() {
+  async openModalArrival() {
     const modal = await this.modalCtrl.create({
       component: ChoiceStopPage,componentProps: {  
         'from': "arrival"     
       }   
     });
-    return await modal.present();
-   }
+    modal.present();
+    const { data } = await modal.onWillDismiss();
+    console.log(data);
+    this.endStop = data.selectedStop;
+    this.arrivee = this.getStopNameFromStopId(data.selectedStop);
+  }
 
   segmentChanged() {
     if (this.favoriteTrip) {
       this.favoriteTrip = false;
     }
     else { this.favoriteTrip = true; }
+  }
+
+  getStopNameFromStopId(id) {
+    let name: string;
+    this.allStops.forEach(stop => {
+      if (id == stop.stopId) {
+        name = stop.stopName;
+      }
+    });
+    return name;
   }
 
 

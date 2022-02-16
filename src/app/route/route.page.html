@@ -9,19 +9,11 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button class="stopButton" fill="clear" (click)="openModalDeparture()">Départ</ion-button>
-<!-- 
-          <ion-list>
-            <ion-item *ngFor="let stop of allStops">
-              <ion-label class="city">{{ stop.parentStation.city }}</ion-label>
-              <ion-label class="stopName">{{ stop.parentStation.name }}</ion-label>
-            </ion-item>
-          </ion-list> -->
-          
-          <ion-button class="stopButton" fill="clear" (click)="openModalArrival()">Arrivée</ion-button>
+          <ion-button class="stopButton" fill="clear" (click)="openModalDeparture()">{{ depart }}</ion-button>
+          <ion-button class="stopButton" fill="clear" (click)="openModalArrival()">{{ arrivee }}</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button class="reverseButton" fill="clear" (click)="reverseStops">
+          <ion-button class="reverseButton" fill="clear" (click)="reverseStops()">
             <ion-icon name="swap-vertical"></ion-icon>
           </ion-button>
         </ion-col>

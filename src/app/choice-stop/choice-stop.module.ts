@@ -8,6 +8,8 @@ import { ChoiceStopPageRoutingModule } from './choice-stop-routing.module';
 
 import { ChoiceStopPage } from './choice-stop.page';
 
+import { StopFilterPipe } from '../pipes/stop-filter.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,7 @@ import { ChoiceStopPage } from './choice-stop.page';
     IonicModule,
     ChoiceStopPageRoutingModule
   ],
-  declarations: [ChoiceStopPage]
+  exports: [StopFilterPipe],
+  declarations: [ChoiceStopPage, StopFilterPipe]
 })
 export class ChoiceStopPageModule {}
