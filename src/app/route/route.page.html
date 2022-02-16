@@ -24,22 +24,22 @@
   <div *ngIf="favoriteTrip">
     <ion-list>
       <ion-item *ngFor="let trip of favoriteListTrip">
-        <ion-label>Pokémon Yellow</ion-label>
+        <ion-label>{{ trip[0] }} -> {{ trip[1] }}</ion-label>
       </ion-item>
     </ion-list>
   </div>
 
   <div class="dateTimeDiv">
     <ion-label>Date & Heure</ion-label>
-    <ion-item button="true" id="open-date-input">
+    <ion-item button="true" id="open-date-input-1">
       <ion-label>Date</ion-label>
       <ion-text slot="end">{{ dateValue }}</ion-text>
-      <ion-popover trigger="open-date-input" show-backdrop="false">
+      <ion-popover trigger="open-date-input-1" show-backdrop="false">
         <ng-template>
           <ion-datetime
-            #popoverDatetime
+            #popoverDate
             presentation="date"
-            (ionChange)="dateValue = formatDate(popoverDatetime.value)"
+            (ionChange)="dateValue = formatDate(popoverDate.value)"
           ></ion-datetime>
         </ng-template>
       </ion-popover>
@@ -47,19 +47,19 @@
     <ion-item>
       <ion-select value="goAfter" class="selectAfterBefore"
           [interfaceOptions]="customPopoverOptions" interface="popover">
-        <ion-select-option value="goAfter">Partir après</ion-select-option>
-        <ion-select-option value="arriveBefore">Arriver avant</ion-select-option>
+        <ion-select-option value="goAfter">Partir après </ion-select-option>
+        <ion-select-option value="arriveBefore">Arriver avant </ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-item button="true" id="open-time-input">
+    <ion-item button="true" id="open-time-input-2">
       <ion-label>Heure</ion-label>
       <ion-text slot="end">{{ timeValue }}</ion-text>
-      <ion-popover trigger="open-time-input" show-backdrop="false">
+      <ion-popover trigger="open-time-input-2" show-backdrop="false" #popOverTime>
         <ng-template>
           <ion-datetime
-            #popoverDatetime
+            #popoverTime
             presentation="time"
-            (ionChange)="timeValue = formatDate(popoverDatetime.value)"
+            (ionChange)="timeValue = formatTime(popoverTime.value)"
           ></ion-datetime>
         </ng-template>
       </ion-popover>
@@ -73,7 +73,7 @@
 
   <div class="bottomDiv">
 
-    <ion-button fill="clear">
+    <ion-button fill="clear" (click)="createFavorite()" >
       <ion-icon name="heart-outline"></ion-icon>
     </ion-button>
 

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonDatetime, ModalController } from '@ionic/angular';
 import { ChoiceStopPage } from '../choice-stop/choice-stop.page';
 import { ApiMetromobiliteService } from '../services/api-metromobilite.service';
 
@@ -9,6 +9,7 @@ import { ApiMetromobiliteService } from '../services/api-metromobilite.service';
   styleUrls: ['./route.page.scss'],
 })
 export class RoutePage implements OnInit {
+  @ViewChild(IonDatetime, {static: true }) datetime: IonDatetime;
 
   favoriteTrip: boolean = false;
   PMRaccess: boolean = false;
@@ -20,6 +21,12 @@ export class RoutePage implements OnInit {
   arrivee: string = 'Arrivée';
   startStop;
   endStop;
+  favoriteListTrip = [];
+  hourSelected: number;
+  daySelected: number;
+  momentSelected: number;
+  dateValue: number;
+  timeValue: number;
 
   constructor(
     private api: ApiMetromobiliteService,
@@ -99,6 +106,48 @@ export class RoutePage implements OnInit {
     });
     return name;
   }
+
+  createFavorite() {
+    console.log(this.startStop);
+    console.log(this.endStop);
+    if (this.startStop && this.endStop) {
+      this.favoriteListTrip.push([this.getStopNameFromStopId(this.startStop), this.getStopNameFromStopId(this.endStop)]);
+      console.log('new favorite');
+    }
+    console.log(this.favoriteListTrip);
+  }
+
+  formatTime(arg) {
+    console.log(arg);
+    let time = Date.parse(arg);
+    this.hourSelected = time % 86400000;
+    this.momentSelected = this.daySelected + this.hourSelected;
+  }
+
+  formatDate(arg) {
+    console.log(arg);
+    let date = Date.parse(arg);
+    let hour = date % 864000000;
+    this.daySelected = date - hour;
+    this.momentSelected = this.daySelected + this.hourSelected;
+  }
+/* 
+  currentDate(){
+    let current = Date.now();
+    console.log(current);
+    console.log(new Date(current));
+    current += 86400000;
+    console.log(current);
+    console.log(new Date(current));
+    let hourCurrent = current % 86400000;
+    console.log(hourCurrent);
+    console.log(new Date(hourCurrent));
+    let dayCurrent = current - hourCurrent;
+    console.log(dayCurrent);
+    console.log(new Date(dayCurrent));
+  }
+ */
+  
 
 
 
