@@ -49,10 +49,6 @@ ion-icon {
 ion-select {
   color: var(--ion-color-accent-tint);
   font-size: 1.25rem;
-  
-  &::part(icon) { 
-    color: var(--ion-color-accent); 
-  }
 
   &::part(text) {
     color: var(--ion-color-accent-tint);
@@ -98,7 +94,17 @@ ion-app.dark {
         color: white;
       }
     }
+  }
 
+  .stopsContent {
+    
+    div {
+      background-color: var(--ion-color-dark);
+      margin: 5%;
+      padding: 2%;
+      border-radius: 0.5rem;
+      box-shadow: 0.25rem 0.5rem 1rem black;
+    }
   }
 
   ion-searchbar {
@@ -146,6 +152,17 @@ ion-app.light {
       label {
         color: black;
       }
+    }
+  }
+
+  .stopsContent {
+    
+    div {
+      background-color: white;
+      margin: 5%;
+      padding: 2%;
+      border-radius: 0.5rem;
+      box-shadow: 0.25rem 0.5rem 1rem var(--ion-color-dark-tint);
     }
   }
 

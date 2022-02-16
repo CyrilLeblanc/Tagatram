@@ -20,7 +20,7 @@
         <label>Changer la direction</label> 
         <ion-icon name="swap-vertical"></ion-icon>
       </ion-button>
-      <ion-item *ngFor="let stop of stopList[line.id]">
+      <ion-item *ngFor="let stop of stopList[line.id]" lines="none">
         <ion-icon name="git-commit-outline"></ion-icon>
         <label>{{ stop.stopName }}</label>
       </ion-item>
