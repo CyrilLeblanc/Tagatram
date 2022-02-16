@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <br>
-    <ion-title>
+    <br />
+    <ion-label>
       {{ title }}
-    </ion-title>
+    </ion-label>
     <ion-button>Point de départ</ion-button>
-    <ion-button>Point d'arrivé</ion-button>
+    <ion-button>Point d'arrivée</ion-button>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -13,20 +13,19 @@
     type="indeterminate"
     *ngIf="schedules === undefined"
   ></ion-progress-bar>
-  <div class="footer">
-  </div>
+  <div class="footer"></div>
   <ion-list>
     <ion-item *ngFor="let schedule of schedules">
-      <ion-title>
+      <ion-label>
         {{ schedule.pattern.id.split(":")[1] }}
-      </ion-title>
+      </ion-label>
       <ion-label size="small">
         {{ schedule.pattern.desc }}
       </ion-label>
       <ion-label>
         <span *ngFor="let time of schedule.times">
           {{ renderTime(time.realtimeArrival) }}
-          <br>
+          <br />
         </span>
       </ion-label>
     </ion-item>
