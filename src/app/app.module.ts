@@ -10,10 +10,13 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 
+import { ChoiceStopPageModule } from './choice-stop/choice-stop.module';
+import { StopFilterPipe } from './pipes/stop-filter.pipe';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ChoiceStopPageModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Storage, Geolocation],
   bootstrap: [AppComponent],
 })

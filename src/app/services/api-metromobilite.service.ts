@@ -146,6 +146,10 @@ export class ApiMetromobiliteService {
     return new Promise(async (resolve) => {
       const cache = await this.storage.get('cache_lineSchedule_' + lineId);
       if (cache) {
+        /* console.debug(
+          `API: lineSchedule ${lineId} loaded from cache`,
+          await cache
+        ); */
         resolve(cache);
       } else {
         this.http

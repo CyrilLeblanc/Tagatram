@@ -1,5 +1,17 @@
 @import "../../theme/variables.scss";
 
+
+
+.city {
+   font-size: smaller;
+   width: min-content;
+}
+.favoriteTrip {
+   height: 213px;
+}
+
+
+
 @media (prefers-color-scheme: dark) {
     /*
      * Darks Colors

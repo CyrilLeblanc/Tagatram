@@ -1,5 +1,5 @@
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
-import { LineSchedule } from './../interfaces/line-schedule';
+import { ThemeChangerService } from './../services/theme-changer.service';
 import { Line } from './../interfaces/line';
 import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -12,34 +12,29 @@ import { StopComponent } from '../stop/stop.component';
   templateUrl: './map.page.html',
   styleUrls: ['./map.page.scss'],
 })
-export class MapPage implements OnInit, OnDestroy {
+export class MapPage {
   locationEnabled = false;
   map: Leaflet.Map;
   searchbar: string = '';
   overlays: { [key: string]: Leaflet.layerGroup } = {
     clusters: [],
   };
+  layer: { [key: string]: Leaflet.tileLayer } = {};
   lines: Line[] = [];
 
   constructor(
     private api: ApiMetromobiliteService,
     private geolocation: Geolocation,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private themeChanger: ThemeChangerService
   ) {}
 
-  ngOnDestroy() {
-    //this.map.remove();
-  }
-
-  ngOnInit() {}
-
-  loadMap() {
+  async loadMap() {
     if (!this.map) {
       this.map = Leaflet.map('map').setView([45.1709, 5.7395], 12);
       this.map.zoomControl.remove();
-      Leaflet.tileLayer(
-        'https://data.mobilites-m.fr/carte-dark/{z}/{x}/{y}.png'
-      ).addTo(this.map);
+
+      this.layer.tag.addTo(this.map);
 
       this.map.on('moveend', async () => {
         this.handleDisplayClusters();
@@ -49,8 +44,19 @@ export class MapPage implements OnInit, OnDestroy {
     }
   }
 
+  updateTheme() {
+    if (this.map) this.map.removeLayer(this.layer.tag);
+    this.layer.tag = Leaflet.tileLayer(
+      `https://data.mobilites-m.fr/carte${
+        this.themeChanger.getTheme() === 'dark' ? '-dark' : ''
+      }/{z}/{x}/{y}.png`
+    );
+    if (this.map) this.map.addLayer(this.layer.tag);
+  }
+
   async ionViewDidEnter() {
-    if (this.loadMap()) {
+    this.updateTheme();
+    if (await this.loadMap()) {
       this.loadLines();
       this.loadClusters();
     }
@@ -149,8 +155,8 @@ export class MapPage implements OnInit, OnDestroy {
   locate() {
     if (
       this.overlays.position === undefined &&
-      this.overlays.accuracy === undefined && 
-      this.locationEnabled
+      this.overlays.accuracy === undefined &&
+      !this.locationEnabled
     ) {
       this.locationEnabled = true;
       this.geolocation.getCurrentPosition().then((resp) => {
