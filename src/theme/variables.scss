@@ -26,11 +26,44 @@
 	--ion-color-white-tint: #f2f0f3;
 }
 
+ion-tab-button {
+  --color: var(--ion-color-accent);
+  --color-selected: var(--ion-color-accent-tint);
+}
+
 ion-button {
-  --color: var(--ion-color-red);
-  --color-selected: var(--ion-color-red-tint);
+  --color: var(--ion-color-accent);
+  --color-selected: var(--ion-color-accent-tint);
 }
 
 ion-title {
-  --color: var(--ion-color-red);
+  --color: var(--ion-color-accent);
+  text-align: center;
+}
+
+ion-icon {
+  color: var(--ion-color-accent);
+}
+
+ion-select {
+  color: var(--ion-color-accent-tint);
+  font-size: 1.25rem;
+  
+  ion-select::part(icon) { 
+    color: var(--ion-color-accent); 
+  }
+}
+
+ion-app.dark {
+
+  ion-content {
+    --ion-background-color: var(--ion-color-dark-tint);
+ }
+}
+
+ion-app.light {
+
+  ion-content {
+    --ion-background-color: var(--ion-color-light-tint);
+ }
 }

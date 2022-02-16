@@ -6,10 +6,6 @@
      * -------------------------------------------
      */
 
-     ion-content {
-        --ion-background-color: var(--ion-color-dark-tint);
-     }
-
      ion-col {
         display: contents;
      }
@@ -19,7 +15,6 @@
      }
 
      ion-icon {  
-        color: var(--ion-color-accent);
         padding: 1rem;
         font-size: 2rem;
      }
@@ -35,12 +30,7 @@
         }
 
         ion-select {
-            color: var(--ion-color-accent-tint);
-            font-size: 1.25rem;
             max-width: 100%;
-        }
-        ion-select::part(icon) { 
-            color: var(--ion-color-accent); 
         }
      }
 
