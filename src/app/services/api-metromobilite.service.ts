@@ -8,6 +8,7 @@ import { LineDescription } from './../interfaces/line-description';
 import { Line } from '../interfaces/line';
 import { Stops } from '../interfaces/stops';
 import { LineSchedule } from './../interfaces/line-schedule';
+import { Route } from '../interfaces/route';
 @Injectable({
   providedIn: 'root',
 })
@@ -146,10 +147,6 @@ export class ApiMetromobiliteService {
     return new Promise(async (resolve) => {
       const cache = await this.storage.get('cache_lineSchedule_' + lineId);
       if (cache) {
-        /* console.debug(
-          `API: lineSchedule ${lineId} loaded from cache`,
-          await cache
-        ); */
         resolve(cache);
       } else {
         this.http
@@ -187,31 +184,33 @@ export class ApiMetromobiliteService {
 
   /**
    * get route beetween 2 points
-   * @param from
-   * @param to
-   * @param date
-   * @param time
-   * @param mode
-   * @param pmr
+   * @param from [lat, lng]
+   * @param to [lat, lng]
+   * @param date optional default today, format YYYY-MM-DD
+   * @param time optional default now, format HH:mm
+   * @param mode optional default ['TRAM', 'WALK']
+   * @param pmr optional default false
    * @returns
    */
   async getRoute(
     from: [number, number],
     to: [number, number],
-    date: string,
-    time: string,
-    mode: string //TRANSIT,WALK,BICYCLE,CAR,BUS,TRAM,RAIL,FERRY,GONDOLA,FUNICULAR
-  ) {
+    date: string = new Date().toISOString().split('T')[0],
+    time: string = new Date().getHours() + ':' + new Date().getMinutes(),
+    mode: string[] = ['TRAM', 'WALK'],
+    pmr: boolean = false
+  ): Promise<Route> {
     return new Promise(async (resolve) => {
-      console.log(this.baseUrl + `routers/default/plan?mode=TRANSIT,WALK&showIntermediateStops=true&fromPlace=${from.join(
-        ','
-      )}&toPlace=${to.join(',')}&time=${time}&date=${date}`);
       this.http
         .get(
           this.baseUrl +
-            `routers/default/plan?mode=TRANSIT,WALK&showIntermediateStops=true&fromPlace=${from.join(
+            `routers/default/plan?mode=${mode.join(
               ','
-            )}&toPlace=${to.join(',')}&time=${time}&date=${date}`
+            )}&showIntermediateStops=true&fromPlace=${from.join(
+              ','
+            )}&toPlace=${to.join(
+              ','
+            )}&time=${time}&date=${date}&wheelchair=${pmr}`
         )
         .subscribe((data: any) => {
           resolve(data);
