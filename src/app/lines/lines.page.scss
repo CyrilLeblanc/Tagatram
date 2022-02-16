@@ -1,5 +1,4 @@
-@import "../../theme/dark_theme.scss";
-@import "../../theme/light_theme.scss";
+@import "../../theme/variables.scss";
 
 @media (prefers-color-scheme: dark) {
     /*
@@ -7,16 +6,7 @@
      * -------------------------------------------
      */
 
-     ion-content {
-        --ion-background-color: var(--ion-color-dark-tint);
-     }
-
-     ion-card {
-        box-shadow: 0.25rem 0.5rem 1rem black;
-     }
-
-    .summary {
-        background-color: var(--ion-color-dark);
+    .contentDiv {
         display: flex;
         flex-wrap: nowrap;
         color: white;
@@ -114,7 +104,6 @@
      }
 
     .summary {
-        background-color: var(--ion-color-dark-constrast);
         display: flex;
         flex-wrap: nowrap;
         color: black;

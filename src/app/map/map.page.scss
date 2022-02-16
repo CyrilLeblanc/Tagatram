@@ -1,5 +1,4 @@
-@import "../../theme/dark_theme.scss";
-@import "../../theme/light_theme.scss";
+@import "../../theme/variables.scss";
 
 #map{
     height: 100%;
@@ -42,7 +41,6 @@
             box-shadow: 0.25rem 0.5rem 1rem black;
     
             ion-icon {
-                color: var(--ion-color-accent);
                 font-size: xx-large;
             }
         }
