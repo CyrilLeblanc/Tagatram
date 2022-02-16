@@ -1,4 +1,3 @@
-import { PoleSchedule } from './../interfaces/pole-schedule';
 import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -27,6 +26,9 @@ export class StopComponent implements OnInit {
     let date = new Date(
       new Date(value * 1000).getTime() - new Date().getTime()
     );
+    if (new Date(value * 1000).getTime() > Date.now()) {
+      date = new Date(0);
+    }
     let hours = date.getHours()-1;
     let minutes = date.getMinutes();
     let seconds = date.getSeconds();
