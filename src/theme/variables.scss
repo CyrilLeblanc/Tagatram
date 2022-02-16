@@ -60,6 +60,11 @@ ion-select {
 
 }
 
+ion-searchbar {
+  --placeholder-color: var(--ion-color-accent-tint);
+  --icon-color: var(--ion-color-accent);
+}
+
 ion-app.dark {
 
   ion-toolbar {
@@ -81,6 +86,31 @@ ion-app.dark {
 
   ion-card {
     box-shadow: 0.25rem 0.5rem 1rem black;
+    
+    .lineName {
+      color: white;
+    }
+
+    ion-item {
+      --ion-item-background: var(--ion-color-dark);
+
+      label {
+        color: white;
+      }
+    }
+
+  }
+
+  ion-searchbar {
+    background-color: var(--ion-color-dark);
+    --background: var(--ion-color-dark-tint);
+  }
+
+  .header {
+    ion-button {
+      background-color: var(--ion-color-dark);
+      box-shadow: 0.25rem 0.5rem 1rem black;
+    }
   }
 }
 
@@ -105,5 +135,29 @@ ion-app.light {
 
   ion-card {
     box-shadow: 0.25rem 0.5rem 1rem var(--ion-color-dark-tint);
+    
+    .lineName {
+      color: black;
+    }
+
+    ion-item {
+      --ion-item-background: white;
+
+      label {
+        color: black;
+      }
+    }
+  }
+
+  ion-searchbar {
+    background-color: var(--ion-color-light);
+    --background: white;
+  }
+
+  .header {
+    ion-button {
+      background-color: white;
+      box-shadow: 0.25rem 0.5rem 1rem var(--ion-color-dark-tint);
+    }
   }
 }
