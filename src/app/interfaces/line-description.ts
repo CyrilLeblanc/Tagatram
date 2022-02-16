@@ -9,7 +9,7 @@ export interface LineDescription {
             COULEUR: string;
             CODE: string;
             LIBELLE: string;
-            ZONES_ARRETS: string[];
+            ZONES_ARRET: string[];
             type: string;
             id: string;
             shape: string;
@@ -17,7 +17,7 @@ export interface LineDescription {
         description: string;
         geometry: {
             type: string;
-            coordinates: [number, number][][]
+            coordinates: [number, number][][] | [number, number][];
         }
     }[]
 }

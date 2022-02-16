@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemeChangerService } from '../services/theme-changer.service';
 
 @Component({
   selector: 'app-settings',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
-  constructor() { }
+  constructor(private themeChangerService: ThemeChangerService) {}
 
   ngOnInit() {
   }
@@ -29,25 +30,39 @@ export class SettingsPage implements OnInit {
     { name: 'Lignes', class: 'lines' }
   ];
 
-  selectTheme = String(document.querySelector('.selectThemeOption'));
-  public dynamicTheme() {
-    switch (this.selectTheme) {
-      case "light": 
-        window.matchMedia('(prefers-color-scheme: light)');
+  selectLanguage = String(document.getElementsByClassName('selectLanguage'));
+  dynamicLanguage() {
+    switch (this.selectLanguage) {
+      case "french": 
         break;
-      case "dark":
-        window.matchMedia('(prefers-color-scheme: dark)');
+      case "english": 
         break;
     }
   }
 
-  selectMainPage = String(document.querySelector('.selectMainPage'));
+  selectTheme = String(document.getElementsByClassName('selectThemeOption'));
+  public dynamicTheme() {
+    switch (this.selectTheme) {
+      case "light": 
+        this.themeChangerService.setTheme("light");
+        break;
+      case "dark":
+        this.themeChangerService.setTheme("dark");
+        break;
+    }
+  }
+
+  selectMainPage = String(document.getElementsByClassName('selectMainPage'));
   public dynamicMainPage() {
     switch (this.selectMainPage) {
-      case "map":
-      case "favorites":
-      case "route":
-      case "lines":
+      case "map": 
+        break;
+      case "favorites": 
+        break;
+      case "route": 
+        break;
+      case "lines": 
+        break;
     }
   }
 
