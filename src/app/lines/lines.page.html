@@ -7,7 +7,7 @@
 <ion-content>
 
   <ion-card class="card" *ngFor="let line of lineList">
-    <div class="summary" (click)="detail(line.id)">
+    <div class="contentDiv" (click)="detail(line.id)">
       <div class="shortName" style="background-color:#{{line.color}}">
         {{ line.shortName }}
       </div>
