@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MapPageRoutingModule } from './map-routing.module';
 
 import { MapPage } from './map.page';
+import { StopComponent } from './../stop/stop.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { MapPage } from './map.page';
     IonicModule,
     MapPageRoutingModule
   ],
-  declarations: [MapPage]
+  exports: [StopComponent],
+  declarations: [MapPage, StopComponent]
 })
 export class MapPageModule {}
