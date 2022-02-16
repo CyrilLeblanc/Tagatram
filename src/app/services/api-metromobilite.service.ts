@@ -200,14 +200,18 @@ export class ApiMetromobiliteService {
     to: [number, number],
     date: string,
     time: string,
-    mode: string,
-    pmr: boolean
+    mode: string //TRANSIT,WALK,BICYCLE,CAR,BUS,TRAM,RAIL,FERRY,GONDOLA,FUNICULAR
   ) {
     return new Promise(async (resolve) => {
+      console.log(this.baseUrl + `routers/default/plan?mode=TRANSIT,WALK&showIntermediateStops=true&fromPlace=${from.join(
+        ','
+      )}&toPlace=${to.join(',')}&time=${time}&date=${date}`);
       this.http
         .get(
           this.baseUrl +
-            `routes/json?from=${from[0]},${from[1]}&to=${to[0]},${to[1]}&date=${date}&time=${time}&mode=${mode}&pmr=${pmr}`
+            `routers/default/plan?mode=TRANSIT,WALK&showIntermediateStops=true&fromPlace=${from.join(
+              ','
+            )}&toPlace=${to.join(',')}&time=${time}&date=${date}`
         )
         .subscribe((data: any) => {
           resolve(data);
@@ -225,10 +229,16 @@ export class ApiMetromobiliteService {
     });
   }
 
-  async getClusterSchedule(clusterId: string): Promise<any>{
+  async getClusterSchedule(clusterId: string): Promise<any> {
     return new Promise(async (resolve) => {
       this.http
-        .get(this.baseUrl + `routers/default/index/clusters/${clusterId.replace('_', ':')}/stoptimes`)
+        .get(
+          this.baseUrl +
+            `routers/default/index/clusters/${clusterId.replace(
+              '_',
+              ':'
+            )}/stoptimes`
+        )
         .subscribe(async (data: any) => {
           resolve(data);
         });
