@@ -27,8 +27,8 @@
             background-color: var(--ion-color-dark);
             border-radius: 0.5rem;
             box-shadow: 0.25rem 0.5rem 1rem black;
-            --placeholder-color: var(--ion-color-red-tint);
-            --icon-color: var(--ion-color-red);
+            --placeholder-color: var(--ion-color-accent-tint);
+            --icon-color: var(--ion-color-accent);
             --background: var(--ion-color-dark-tint);
             --border-radius: 0.5rem;
         }
@@ -42,8 +42,33 @@
             box-shadow: 0.25rem 0.5rem 1rem black;
     
             ion-icon {
-                color: var(--icon-color-red);
+                color: var(--ion-color-accent);
                 font-size: xx-large;
+            }
+        }
+    }
+
+    .footer {
+        position: fixed;
+        right: 0;
+        left: 0;
+        bottom: 8%;
+        z-index: 0;
+        background-color: var(--ion-color-dark);
+        margin: 2% 10%;
+        border-radius: 0.5rem;
+        box-shadow: 0.25rem 0.5rem 1rem black;
+        
+
+        ion-col {
+            text-align: center;
+
+            ion-icon {
+                font-size: xx-large;
+            }
+
+            label {
+                color: var(--ion-color-accent)
             }
         }
     }
@@ -70,8 +95,8 @@
             background-color: var(--ion-color-light);
             border-radius: 0.5rem;
             box-shadow: 0.25rem 0.5rem 1rem var(--ion-color-dark-tint);
-            --placeholder-color: var(--ion-color-red-tint);
-            --icon-color: var(--ion-color-red);
+            --placeholder-color: var(--ion-color-accent-tint);
+            --icon-color: var(--ion-color-accent);
             --background: var(--ion-color-dark-contrast);
             --border-radius: 0.5rem;
         }
@@ -84,7 +109,7 @@
             box-shadow: 0.25rem 0.5rem 1rem var(--ion-color-dark-tint);
     
             ion-icon {
-                color: var(--icon-color-red);
+                color: var(--ion-color-accent);
                 font-size: xx-large;
             }
         }

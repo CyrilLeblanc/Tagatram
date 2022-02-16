@@ -12,7 +12,37 @@
 </ion-content>
 
 <div class="footer">
-  <ion-buttons>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+          <ion-icon name="subway-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+          <ion-icon name="heart-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
+          <ion-icon name="star-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <label>Tram</label>
+      </ion-col>
+      <ion-col>
+        <label>Favoris</label>
+      </ion-col>
+      <ion-col>
+          <label>Personnaliser</label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <ion-buttons>
     <ion-button (click)="onClick()" expand="block" fill="clear" shape="round">
       <ion-icon name="subway-outline"></ion-icon>
       <ion-label>Tram</ion-label>
@@ -25,5 +55,5 @@
       <ion-icon name="star-outline"></ion-icon>
       <ion-label>Personnaliser</ion-label>
     </ion-button>
-  </ion-buttons>
+  </ion-buttons> -->
 </div>
