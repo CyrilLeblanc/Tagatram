@@ -20,7 +20,7 @@
      }
 
      ion-icon {  
-        color: var(--ion-color-red);
+        color: var(--ion-color-accent);
         padding: 1rem;
         font-size: 2rem;
      }
@@ -28,20 +28,20 @@
      ion-item {
         margin: auto 0;
         --ion-item-background: var(--ion-color-dark);
-        border-bottom: solid 1px var(--ion-color-red);
+        border-bottom: solid 1px var(--ion-color-accent);
          
         ion-label {
-            color: var(--ion-color-red);
+            color: var(--ion-color-accent);
             font-size: 1rem;
         }
 
         ion-select {
-            color: var(--ion-color-red-tint);
+            color: var(--ion-color-accent-tint);
             font-size: 1.25rem;
             max-width: 100%;
         }
         ion-select::part(icon) { 
-            color: var(--ion-color-red); 
+            color: var(--ion-color-accent); 
         }
      }
 
@@ -73,7 +73,7 @@
    }
 
    ion-icon {  
-      color: var(--ion-color-red);
+      color: var(--ion-color-accent);
       padding: 1rem;
       font-size: 2rem;
    }
@@ -81,20 +81,20 @@
    ion-item {
       margin: auto 0;
       --ion-item-background: var(--ion-color-dark-contrast);
-      border-bottom: solid 1px var(--ion-color-red);
+      border-bottom: solid 1px var(--ion-color-accent);
        
       ion-label {
-          color: var(--ion-color-red);
+          color: var(--ion-color-accent);
           font-size: 1rem;
       }
 
       ion-select {
-          color: var(--ion-color-red-tint);
+          color: var(--ion-color-accent-tint);
           font-size: 1.25rem;
           max-width: 100%;
       }
       ion-select::part(icon) { 
-          color: var(--ion-color-red); 
+          color: var(--ion-color-accent); 
       }
    }
 

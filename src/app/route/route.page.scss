@@ -12,8 +12,8 @@
      }
 
      .stopButton {
-        color: var(--ion-color-red-tint);
-        border: solid 2px var(--ion-color-red);
+        color: var(--ion-color-accent-tint);
+        border: solid 2px var(--ion-color-accent);
         border-radius: 0.5rem;
         width: 175%;
         height: 4rem;
@@ -21,15 +21,15 @@
 
      .reverseButton {
         float: right;
-        color: var(--ion-color-red-tint);
-        border: solid 2px var(--ion-color-red-tint);
+        color: var(--ion-color-accent-tint);
+        border: solid 2px var(--ion-color-accent-tint);
         border-radius: 0.5rem;
         width: 25%;
         height: 8.5rem;
      }
 
      ion-label {
-        color: var(--ion-color-red);
+        color: var(--ion-color-accent);
      }
 
      div {
@@ -52,12 +52,12 @@
      }
 
      ion-label {
-        color: var(--ion-color-red);
+        color: var(--ion-color-accent);
      }
 
      ion-button {
-        color: var(--ion-color-red-tint);
-        border: solid 2px var(--ion-color-red);
+        color: var(--ion-color-accent-tint);
+        border: solid 2px var(--ion-color-accent);
         border-radius: 0.5rem;
         width: 100%;
         height: 4rem;
