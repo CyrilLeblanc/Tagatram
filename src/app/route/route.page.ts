@@ -25,8 +25,8 @@ export class RoutePage implements OnInit {
   hourSelected: number;
   daySelected: number;
   momentSelected: number;
-  timeString: String = 'Date';
-  dateString: String = 'Heure';
+  dateString: String = 'Date';
+  timeString: String = 'Heure';
 
   constructor(
     private api: ApiMetromobiliteService,

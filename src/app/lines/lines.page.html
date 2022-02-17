@@ -8,19 +8,19 @@
 
   <ion-card class="card" *ngFor="let line of lineList">
     <div class="contentDiv" (click)="detail(line.id)">
-      <div class="shortName" style="background-color:#{{line.color}}">
+      <div class="lineLetter" style="background-color:#{{line.color}}">
         {{ line.shortName }}
       </div>
-      <div class="longName">
+      <div class="lineName">
         <label>{{ line.longName }}</label>
       </div>
     </div>
     <ion-list *ngIf="lineListDetailCondition[line.id]">
-      <div class="directionBtn" (click)="direction(line.id)">
+      <ion-button (click)="direction(line.id)" fill="clear">
         <label>Changer la direction</label> 
         <ion-icon name="swap-vertical"></ion-icon>
-      </div>
-      <ion-item *ngFor="let stop of stopList[line.id]">
+      </ion-button>
+      <ion-item *ngFor="let stop of stopList[line.id]" lines="none">
         <ion-icon name="git-commit-outline"></ion-icon>
         <label>{{ stop.stopName }}</label>
       </ion-item>

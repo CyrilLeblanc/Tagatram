@@ -1,84 +1,75 @@
 @import "../../theme/variables.scss";
 
-
-
 .city {
    font-size: smaller;
    width: min-content;
 }
+
 .favoriteTrip {
    height: 213px;
 }
 
+.stopsDiv {
+   
+   span{
+      text-align:left;
+      width:100%;
+      }
+   
+   .stopButton {
+      border: solid 2px var(--ion-color-accent);
+      border-radius: 0.5rem;
+      width: 100%;
+   }
 
+   .reverseButton {
+      color: var(--ion-color-accent-tint);
+      border: solid 2px var(--ion-color-accent-tint);
+      display: block;
+      margin: auto;
+      border-radius: 0.5rem;
+      width: 25%;
+      height: 2rem;
 
-@media (prefers-color-scheme: dark) {
-    /*
-     * Darks Colors
-     * -------------------------------------------
-     */
-
-     ion-content {
-        --ion-background-color: var(--ion-color-dark-tint);
-     }
-
-     .stopButton {
-        color: var(--ion-color-accent-tint);
-        border: solid 2px var(--ion-color-accent);
-        border-radius: 0.5rem;
-        width: 175%;
-        height: 4rem;
-     }
-
-     .reverseButton {
-        float: right;
-        color: var(--ion-color-accent-tint);
-        border: solid 2px var(--ion-color-accent-tint);
-        border-radius: 0.5rem;
-        width: 25%;
-        height: 8.5rem;
-     }
-
-     ion-label {
-        color: var(--ion-color-accent);
-     }
-
-     div {
-        background-color: var(--ion-color-dark);
-        margin: 5%;
-        padding: 2%;
-        border-radius: 0.5rem;
-        box-shadow: 0.25rem 0.5rem 1rem black;
-     }
+      ion-icon {
+         color: var(--ion-color-accent-tint);
+      }
+   }
 }
 
-@media (prefers-color-scheme: light) {
-    /*
-     * Lights Colors
-     * -------------------------------------------
-     */
+.dateTimeDiv {
+   
+   ion-label {
+      color: var(--ion-color-accent);
+   }
 
-     ion-content {
-        --ion-background-color: var(--ion-color-light);
-     }
+   ion-item {
+      --ion-item-background: transparent;
+      border-bottom: solid 1px var(--ion-color-accent);
+      
+      ion-select {
+         font-size: medium;
+      }
 
-     ion-label {
-        color: var(--ion-color-accent);
-     }
+      ion-label {
+         color: var(--ion-color-accent-tint);
+         font-size: medium;
+      }
+   }
+}
 
-     ion-button {
-        color: var(--ion-color-accent-tint);
-        border: solid 2px var(--ion-color-accent);
-        border-radius: 0.5rem;
-        width: 100%;
-        height: 4rem;
-     }
+.pmrAccessDiv {
 
-     div {
-        background-color: var(--ion-color-dark-contrast);
-        margin: 5%;
-        padding: 2%;
-        border-radius: 0.5rem;
-        box-shadow: 0.25rem 0.5rem 1rem black;
-    }
+   display: flex;
+   
+   ion-icon {
+      font-size: xx-large;
+      margin: auto 0.1rem;
+   }
+
+   ion-label {
+      color: var(--ion-color-accent-tint);
+      margin: auto 1rem;
+      font-size: medium;
+   }
 }

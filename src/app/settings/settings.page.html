@@ -13,7 +13,7 @@
           <ion-icon name="language"></ion-icon>
         </ion-col>
         <ion-col>
-          <ion-item>
+          <ion-item lines="none">
             <ion-label>Langue</ion-label>
             <ion-select class="selectLanguage" [interfaceOptions]="customPopoverOptions" interface="popover"
                 [(ngModel)]="selectLanguage" (ionChange)="dynamicLanguage()" disabled>
@@ -30,7 +30,7 @@
           <ion-icon name="bookmark-outline"></ion-icon>
         </ion-col>
         <ion-col>
-          <ion-item>
+          <ion-item lines="none">
             <ion-label>Page d'accueil</ion-label>
             <ion-select class="selectMainPage" [interfaceOptions]="customPopoverOptions" interface="popover"
                 [(ngModel)]="selectMainPage" (ionChange)="dynamicMainPage()">
@@ -47,7 +47,7 @@
           <ion-icon name="invert-mode-outline"></ion-icon>
         </ion-col>
         <ion-col>
-          <ion-item>
+          <ion-item lines="none">
             <ion-label>Thème</ion-label>
             <ion-select class="selectTheme" [interfaceOptions]="customPopoverOptions" interface="popover"
                 [(ngModel)]="selectTheme" (ionChange)="dynamicTheme()">

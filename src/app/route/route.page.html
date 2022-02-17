@@ -4,17 +4,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="stopsContent">
   <div class="stopsDiv" *ngIf="!favoriteTrip">
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button class="stopButton" fill="clear" (click)="openModalDeparture()">{{ depart }}</ion-button>
-          <ion-button class="stopButton" fill="clear" (click)="openModalArrival()">{{ arrivee }}</ion-button>
-        </ion-col>
-        <ion-col>
+          <ion-button class="stopButton" fill="clear" (click)="openModalDeparture()">
+            <span>{{ depart }}</span>
+          </ion-button>
           <ion-button class="reverseButton" fill="clear" (click)="reverseStops()">
             <ion-icon name="swap-vertical"></ion-icon>
+          </ion-button>
+          <ion-button class="stopButton" fill="clear" (click)="openModalArrival()">
+            <span>{{ arrivee }}</span>
           </ion-button>
         </ion-col>
       </ion-row>
@@ -31,42 +33,55 @@
 
   <div class="dateTimeDiv">
     <ion-label>Date & Heure</ion-label>
-    <ion-item button="true" id="open-date-input-1">
-      <ion-label>{{ dateString }}</ion-label>
-      <ion-text slot="end">{{ dateValue }}</ion-text>
-      <ion-popover trigger="open-date-input-1" show-backdrop="false">
-        <ng-template>
-          <ion-datetime
-            #popoverDate
-            presentation="date"
-            (ionChange)="dateValue = formatDate(popoverDate.value)"
-          ></ion-datetime>
-        </ng-template>
-      </ion-popover>
-    </ion-item>
-    <ion-item>
-      <ion-select value="goAfter" class="selectAfterBefore"
-          [interfaceOptions]="customPopoverOptions" interface="popover">
-        <ion-select-option value="goAfter">Partir après </ion-select-option>
-        <ion-select-option value="arriveBefore">Arriver avant </ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item button="true" id="open-time-input-2">
-      <ion-label>{{ timeString }}</ion-label>
-      <ion-text slot="end">{{ timeValue }}</ion-text>
-      <ion-popover trigger="open-time-input-2" show-backdrop="false" #popOverTime>
-        <ng-template>
-          <ion-datetime
-            #popoverTime
-            presentation="time"
-            (ionChange)="timeValue = formatTime(popoverTime.value)"
-          ></ion-datetime>
-        </ng-template>
-      </ion-popover>
-    </ion-item>
+    <ion-grid >
+      <ion-row>
+        <ion-col>
+          <ion-item id="open-date-input-1" lines="none">
+            <ion-label>{{ dateString }}</ion-label>
+            <ion-text slot="end">{{ dateValue }}</ion-text>
+            <ion-popover trigger="open-date-input-1" show-backdrop="false">
+              <ng-template>
+                <ion-datetime
+                  #popoverDate
+                  presentation="date"
+                  (ionChange)="dateValue = formatDate(popoverDate.value)"
+                ></ion-datetime>
+              </ng-template>
+            </ion-popover>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-select value="goAfter" class="selectAfterBefore"
+                [interfaceOptions]="customPopoverOptions" interface="popover">
+              <ion-select-option value="goAfter">Partir après </ion-select-option>
+              <ion-select-option value="arriveBefore">Arriver avant </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item id="open-time-input-2" lines="none">
+            <ion-label>{{ timeString }}</ion-label>
+            <ion-text slot="end">{{ timeValue }}</ion-text>
+            <ion-popover trigger="open-time-input-2" show-backdrop="false" #popOverTime>
+              <ng-template>
+                <ion-datetime
+                  #popoverTime
+                  presentation="time"
+                  (ionChange)="timeValue = formatTime(popoverTime.value)"
+                ></ion-datetime>
+              </ng-template>
+            </ion-popover>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 
   <div class="pmrAccessDiv">
+    <ion-icon name="fitness-outline"></ion-icon>
     <ion-label>Accès PMR</ion-label>
     <ion-toggle [(ngModel)]="PMRaccess"></ion-toggle>
   </div>
