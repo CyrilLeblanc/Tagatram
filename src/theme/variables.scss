@@ -28,8 +28,8 @@
 }
 
 ion-tab-button {
-  --color: var(--ion-color-accent);
-  --color-selected: var(--ion-color-accent-tint);
+    --color: var(--ion-color-accent);
+    --color-selected: var(--ion-color-accent-tint);
 }
 
 ion-button {
@@ -42,9 +42,6 @@ ion-title {
   text-align: center;
 }
 
-ion-icon {
-  color: var(--ion-color-accent);
-}
 
 ion-select {
   color: var(--ion-color-accent-tint);
