@@ -71,13 +71,15 @@ ion-toggle {
 }
 
 ion-segment {
-  margin: auto 0.5rem;
-  border-radius: 0.5rem;
-  height: fit-content;
+  margin: auto 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  height: 3rem;
 
   ion-segment-button {
-    margin: 0.25rem;
+    margin-bottom: 0.25rem;
     --indicator-color: var(--ion-color-accent-tint);
+    --color: var(--ion-color-accent);
+    --color-checked: var(--ion-color-accent-tint);
     font-size: smaller;
   }
 }
@@ -102,16 +104,6 @@ ion-card {
   bottom: 8%;
   margin: 2% 10%;
   border-radius: 0.5rem;
-  
-  .goBtn {
-
-    background-color: var(--ion-color-accent-tint);
-    border-radius: 2rem;
-
-    ion-icon {
-       font-size: 1.5rem;
-    }
-  }
 }
 
 .closeBtn {
@@ -141,7 +133,6 @@ ion-app.dark {
 
   ion-segment {
     --background: var(--ion-color-dark-tint);
-    color: var(--ion-color-light-shade);
   }
 
   .closeBtn {
@@ -241,7 +232,6 @@ ion-app.light {
 
   ion-segment {
     --background: var(--ion-color-light);
-    color: var(--ion-color-dark-tint);
   }
 
   .closeBtn {

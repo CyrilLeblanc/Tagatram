@@ -16,7 +16,7 @@
     <ion-item *ngFor="let stop of allStops | stopFilter: searched" (click)="stopChoosen(stop.stopId)" lines="none">
       <ion-icon name="git-commit-outline"></ion-icon>
       <ion-label class="name">{{ stop.parentStation.name }}</ion-label>
-      <ion-label class="name">{{ stop.parentStation.city }}</ion-label>
+      <ion-label class="name" slot="end">{{ stop.parentStation.city }}</ion-label>
     </ion-item>
   </ion-card>
 
