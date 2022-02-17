@@ -22,7 +22,10 @@
       </ion-button>
       <ion-item *ngFor="let stop of stopList[line.id]" lines="none" (click)="displayStop(stop)">
         <ion-icon name="git-commit-outline"></ion-icon>
-        <label>{{ stop.stopName }}</label>
+        <ion-label>
+          <span>{{ stop.parentStation.city }}</span>
+          <h2>{{ stop.parentStation.name }}</h2>
+        </ion-label>
       </ion-item>
     </ion-list>
   </ion-card>

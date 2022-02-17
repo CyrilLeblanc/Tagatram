@@ -192,6 +192,16 @@ ion-app.dark {
     box-shadow: 0.25rem 0.25rem 1rem black;
   }
 
+  ion-card {
+    span {
+      color: white;
+    }
+
+    h2 {
+      color: white;
+    }
+  }
+
   .header {
     ion-button {
       background-color: var(--ion-color-dark);
@@ -249,7 +259,7 @@ ion-app.light {
   
     ion-icon {
       color: var(--ion-color-dark-shade);
-      font-size: larger;
+      font-size: 2rem;
     }
   }
 
