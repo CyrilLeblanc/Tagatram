@@ -24,9 +24,13 @@ export class RoutePage implements OnInit {
   favoriteListTrip = [];
   hourSelected: number;
   daySelected: number;
-  momentSelected: number;
   dateString: String = 'Date';
   timeString: String = 'Heure';
+  timeFormat: string;
+  dateFormat: string;
+  coorDeparture: [number, number];
+  coorArrival: [number, number];
+  chaipas;
 
   constructor(
     private api: ApiMetromobiliteService,
@@ -75,6 +79,7 @@ export class RoutePage implements OnInit {
     const { data } = await modal.onWillDismiss();
     this.startStop = data.selectedStop;
     this.depart = this.getStopNameFromStopId(data.selectedStop);
+    this.coorDeparture = this.getStopCoorFromStopId(data.selectedStop);
    }
 
   async openModalArrival() {
@@ -88,6 +93,7 @@ export class RoutePage implements OnInit {
     console.log(data);
     this.endStop = data.selectedStop;
     this.arrivee = this.getStopNameFromStopId(data.selectedStop);
+    this.coorArrival = this.getStopCoorFromStopId(data.selectedStop);
   }
 
   segmentChanged() {
@@ -107,6 +113,17 @@ export class RoutePage implements OnInit {
     return name;
   }
 
+  getStopCoorFromStopId(id) {
+    let coor: [number, number];
+    this.allStops.forEach(stop => {
+      if (id == stop.stopId) {
+        coor = [stop.parentStation.lat, stop.parentStation.lon];
+      }
+    });
+    console.log(coor);
+    return coor;
+  }
+
   createFavorite() {
     console.log(this.startStop);
     console.log(this.endStop);
@@ -120,9 +137,10 @@ export class RoutePage implements OnInit {
   formatTime(arg) {
     let time = Date.parse(arg);
     this.hourSelected = time % 86400000;
-    this.momentSelected = this.daySelected + this.hourSelected;
     let timeDate = new Date(this.hourSelected);
     this.timeString = timeDate.getHours() + ' : ' + timeDate.getMinutes();
+    this.timeFormat = timeDate.getHours() + ':' + timeDate.getMinutes();
+    console.log(this.timeFormat);
   }
 
   formatDate(arg) {
@@ -131,7 +149,20 @@ export class RoutePage implements OnInit {
     let dayDate = new Date(this.daySelected)
     let mois = dayDate.getMonth() + 1;
     this.dateString = dayDate.getDate() +'/'+ mois +'/'+ dayDate.getFullYear();
+    this.dateFormat = dayDate.getFullYear() + '-' + mois + '-' + dayDate.getDate();
+    console.log(this.dateFormat);
+  }
 
+  async itinerary() {
+    this.chaipas = await this.api.getRoute(
+      this.coorDeparture,
+      this.coorArrival,
+      this.dateFormat,
+      this.timeFormat,
+      ['TRAM', 'WALK'],
+      this.PMRaccess
+    ) 
+    console.log(this.chaipas);
   }
 
 
