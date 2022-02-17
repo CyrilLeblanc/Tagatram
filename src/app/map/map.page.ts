@@ -281,15 +281,18 @@ export class MapPage {
     let firstCoord: [number, number], lastCoord: [number, number];
     route.plan.itineraries[0].legs.forEach((leg, index) => {
       let key = leg.mode === 'WALK' ? 'steps' : 'intermediateStops';
-      if (index === 0) {
-        firstCoord = [leg[key][leg[key].length - 1].lat, leg[key][leg[key].length - 1].lon];
-      } else if (index === route.plan.itineraries[0].legs.length - 1) {
-        lastCoord = [leg[key][0].lat, leg[key][0].lon];
-      }
-      console.log(firstCoord, lastCoord);
-      let coordList = leg[key].map((item) => {
+      //firstCoord = [leg[key][leg[key].length - 1].lat, leg[key][leg[key].length - 1].lon];
+      //lastCoord = [leg[key][0].lat, leg[key][0].lon];
+
+      let coordList = leg[key].map((item, index) => {
         return [item.lat, item.lon];
       });
+
+      if (index !== 0 && lastCoord !== undefined) {
+        coordList.unshift(
+          lastCoord
+        );
+      }
 
       this.overlays.route.push(
         Leaflet.polyline(coordList, {
@@ -299,6 +302,7 @@ export class MapPage {
           .addTo(this.map)
           .bringToBack()
       );
+      lastCoord = coordList[coordList.length - 1];
     });
   }
 }
