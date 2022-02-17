@@ -59,16 +59,17 @@
 }
 
 .pmrAccessDiv {
+
+   display: flex;
    
    ion-icon {
       font-size: xx-large;
+      margin: auto 0.1rem;
    }
 
    ion-label {
       color: var(--ion-color-accent-tint);
       margin: auto 1rem;
-   }
-
-   ion-toggle {
+      font-size: medium;
    }
 }
