@@ -20,7 +20,7 @@ export class ChoiceStopPage implements OnInit {
 
   constructor(
     private api: ApiMetromobiliteService,
-    public viewCtrl: ModalController,
+    public viewCtrl: ModalController
     ) { }
 
   ngOnInit() {

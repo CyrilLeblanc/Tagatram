@@ -1,10 +1,12 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Route } from './../interfaces/route';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { ThemeChangerService } from './../services/theme-changer.service';
 import { Line } from './../interfaces/line';
 import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
+import { OnDestroy } from '@angular/core';
 import * as Leaflet from 'leaflet';
 
 import { StopComponent } from '../stop/stop.component';
@@ -13,7 +15,7 @@ import { StopComponent } from '../stop/stop.component';
   templateUrl: './map.page.html',
   styleUrls: ['./map.page.scss'],
 })
-export class MapPage {
+export class MapPage implements OnDestroy {
   locationEnabled = false;
   map: Leaflet.Map;
   searchbar: string = '';
@@ -29,11 +31,21 @@ export class MapPage {
     private api: ApiMetromobiliteService,
     private geolocation: Geolocation,
     private modalController: ModalController,
-    private themeChanger: ThemeChangerService
-  ) {}
+    private themeChanger: ThemeChangerService,
+    private alertController: AlertController,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.params.subscribe((params) => {
+      if (params.latitude && params.longitude && this.map) {
+        this.map.setView([params.latitude, params.longitude], 15);
+      }
+    });
+  }
 
   async loadMap() {
-    if (!this.map) {
+    console.log(this);
+    if (this.map === undefined) {
       this.map = Leaflet.map('map').setView([45.1709, 5.7395], 12);
       this.map.zoomControl.remove();
 
@@ -64,6 +76,10 @@ export class MapPage {
       this.loadClusters();
     }
   }
+
+  ngOnDestroy(): void {
+    this.map.remove();
+  }
   // fetch lines of tram and draw them on map
   async loadLines() {
     (await this.api.getTramLineList()).forEach(async (line: Line) => {
@@ -76,8 +92,7 @@ export class MapPage {
             color: `#${line.color}`,
           }
         ),
-      ]);
-      this.map.addLayer(this.overlays[line.id]);
+      ]).addTo(this.map);
     });
   }
 
@@ -202,7 +217,7 @@ export class MapPage {
         .toLowerCase()
         .includes(value.toLowerCase())
         ? 1
-        : 0.05;
+        : 0.1;
       cluster.setStyle({ fillOpacity: opacity, opacity: opacity });
       if (opacity === 1) {
         clusters.push(cluster);
@@ -227,6 +242,7 @@ export class MapPage {
         stopId: stopId,
         latitude: latitude,
         longitude: longitude,
+        routeButtons: true,
       },
       breakpoints: [0, 0.3, 0.5, 0.8],
       initialBreakpoint: 0.5,
@@ -263,29 +279,44 @@ export class MapPage {
   }
 
   displayRoute(route: Route) {
+    console.log(route);
     this.removeRouteOverlay();
     if (route.error) {
       console.error('ROUTER', route.error.msg);
+      this.alertController
+        .create({
+          header: route.error.message,
+          message: route.error.msg,
+        })
+        .then((modal) => {
+          modal.present();
+        });
       return !route.error.noPath;
     }
-    route.plan.itineraries[0].legs.forEach((leg) => {
-      this.overlays.routes = [];
+    this.overlays.routes = [];
+    let firstCoord: [number, number], lastCoord: [number, number];
+    route.plan.itineraries[0].legs.forEach((leg, index) => {
       let key = leg.mode === 'WALK' ? 'steps' : 'intermediateStops';
-      console.log(leg);
+      //firstCoord = [leg[key][leg[key].length - 1].lat, leg[key][leg[key].length - 1].lon];
+      //lastCoord = [leg[key][0].lat, leg[key][0].lon];
+
+      let coordList = leg[key].map((item, index) => {
+        return [item.lat, item.lon];
+      });
+
+      if (index !== 0 && lastCoord !== undefined) {
+        coordList.unshift(lastCoord);
+      }
+
       this.overlays.route.push(
-        Leaflet.polyline(
-          leg[key].map((item) => {
-            return [item.lat, item.lon];
-          }),
-          {
-            color: '#FFF',
-            weight: 20,
-          }
-        )
+        Leaflet.polyline(coordList, {
+          color: `#${key === 'steps' ? 'b22d24' : leg.routeColor}`,
+          weight: 12,
+        })
+          .addTo(this.map)
+          .bringToBack()
       );
-    });
-    this.overlays.route.forEach((route) => {
-      route.addTo(this.map);
+      lastCoord = coordList[coordList.length - 1];
     });
   }
 }

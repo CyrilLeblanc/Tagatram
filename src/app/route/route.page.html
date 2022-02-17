@@ -81,7 +81,7 @@
   </div>
 
   <div class="pmrAccessDiv">
-    <ion-icon name="fitness-outline"></ion-icon>
+    <img src="/assets/icon/disabled.png">
     <ion-label>Accès PMR</ion-label>
     <ion-toggle [(ngModel)]="PMRaccess"></ion-toggle>
   </div>
@@ -101,7 +101,7 @@
       </ion-segment-button>
     </ion-segment>
 
-    <ion-button class="goBtn" fill="clear">
+    <ion-button class="goBtn" fill="clear" (click)="itinerary()">
       <ion-icon name="navigate"></ion-icon>
       <ion-label>Go</ion-label>
     </ion-button>

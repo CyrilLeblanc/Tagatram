@@ -4,8 +4,13 @@
     <ion-label>
       {{ title }}
     </ion-label>
-    <ion-button (click)="setFromPoint()">Point de départ</ion-button>
-    <ion-button (click)="setToPoint()">Point d'arrivée</ion-button>
+    <div *ngIf="routeButtons">
+      <ion-button (click)="setFromPoint()">Point de départ</ion-button>
+      <ion-button (click)="setToPoint()">Point d'arrivée</ion-button>
+    </div>
+    <div *ngIf="goToButton">
+      <ion-button (click)="goToMap()">Aller</ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
