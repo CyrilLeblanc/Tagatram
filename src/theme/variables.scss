@@ -59,12 +59,58 @@ ion-select {
 ion-searchbar {
   --placeholder-color: var(--ion-color-accent-tint);
   --icon-color: var(--ion-color-accent);
+  --border-radius: 0.5rem;
+  border-radius: 0.5rem;
+  padding-right: 2.5rem;
 }
 
 ion-toggle {
   --background-checked: var(--ion-color-accent-tint);
   --handle-background: var(--ion-color-accent);
   --handle-background-checked: var(--ion-color-accent);
+}
+
+ion-segment {
+  margin: auto 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  height: 3rem;
+
+  ion-segment-button {
+    margin-bottom: 0.25rem;
+    --indicator-color: var(--ion-color-accent-tint);
+    --color: var(--ion-color-accent);
+    --color-checked: var(--ion-color-accent-tint);
+    font-size: smaller;
+  }
+}
+
+ion-card {
+  border-radius: 0.5rem;
+
+  ion-item {
+    border-radius: 0.5rem;
+    margin: 1%;
+
+    ion-icon {
+        transform: rotate(90deg);
+    }
+  }
+}
+
+.footer {
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 8%;
+  margin: 2% 10%;
+  border-radius: 0.5rem;
+}
+
+.closeBtn {
+  float: right;
+  margin: auto 0.5rem;
+  --background: var(--ion-color-accent);
+  border-radius: 0.5rem;
 }
 
 ion-app.dark {
@@ -85,6 +131,27 @@ ion-app.dark {
     --background: var(--ion-color-dark-tint);
   }
 
+  ion-segment {
+    --background: var(--ion-color-dark-tint);
+  }
+
+  .closeBtn {
+    color: var(--ion-color-light);
+    box-shadow: 0.25rem 0.25rem 1rem black;
+
+    ion-icon {
+      color: var(--ion-color-light);
+    }
+  }
+
+  .reverseBtn {
+  
+    ion-icon {
+      color: var(--ion-color-light-shade);
+      font-size: larger;
+    }
+  }
+
   .contentDiv {
     background-color: var(--ion-color-dark);
     box-shadow: 0.25rem 0.5rem 1rem black;
@@ -93,7 +160,7 @@ ion-app.dark {
   ion-card {
     box-shadow: 0.25rem 0.5rem 1rem black;
     
-    .lineName {
+    .name {
       color: white;
     }
 
@@ -120,12 +187,27 @@ ion-app.dark {
   ion-searchbar {
     background-color: var(--ion-color-dark);
     --background: var(--ion-color-dark-tint);
+    box-shadow: 0.25rem 0.25rem 1rem black;
   }
 
   .header {
     ion-button {
       background-color: var(--ion-color-dark);
       box-shadow: 0.25rem 0.5rem 1rem black;
+    }
+  }
+
+  .footer {
+    
+    .goBtn {
+
+      ion-label {
+        color: var(--ion-color-light-shade);
+      }
+  
+      ion-icon {
+        color: var(--ion-color-light-shade);
+      }
     }
   }
 }
@@ -146,6 +228,27 @@ ion-app.light {
 
   ion-toggle {
     --background: var(--ion-color-light);
+  }
+
+  ion-segment {
+    --background: var(--ion-color-light);
+  }
+
+  .closeBtn {
+    color: var(--ion-color-dark);
+    box-shadow: 0.25rem 0.25rem 1rem var(--ion-color-dark-tint);
+
+    ion-icon {
+      color: var(--ion-color-dark);
+    }
+  }
+
+  .reverseBtn {
+  
+    ion-icon {
+      color: var(--ion-color-dark-shade);
+      font-size: larger;
+    }
   }
 
   .contentDiv {
@@ -183,12 +286,27 @@ ion-app.light {
   ion-searchbar {
     background-color: var(--ion-color-light);
     --background: white;
+    box-shadow: 0.25rem 0.25rem 1rem var(--ion-color-dark-tint);
   }
 
   .header {
     ion-button {
       background-color: white;
       box-shadow: 0.25rem 0.5rem 1rem var(--ion-color-dark-tint);
+    }
+  }
+
+  .footer {
+    
+    .goBtn {
+
+      ion-label {
+        color: var(--ion-color-dark-tint);
+      }
+  
+      ion-icon {
+        color: var(--ion-color-dark-tint);
+      }
     }
   }
 }

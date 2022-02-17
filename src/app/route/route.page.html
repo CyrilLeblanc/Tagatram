@@ -37,10 +37,7 @@
             <ion-text slot="end">{{ dateValue }}</ion-text>
             <ion-popover trigger="open-date-input-1" show-backdrop="false">
               <ng-template>
-                <ion-datetime
-                  #popoverDate
-                  presentation="date"
-                  (ionChange)="dateValue = formatDate(popoverDate.value)"
+                <ion-datetime #popoverDate presentation="date" (ionChange)="dateValue = formatDate(popoverDate.value)"
                 ></ion-datetime>
               </ng-template>
             </ion-popover>
@@ -63,10 +60,7 @@
             <ion-text slot="end">{{ timeValue }}</ion-text>
             <ion-popover trigger="open-time-input-2" show-backdrop="false" #popOverTime>
               <ng-template>
-                <ion-datetime
-                  #popoverTime
-                  presentation="time"
-                  (ionChange)="timeValue = formatTime(popoverTime.value)"
+                <ion-datetime #popoverTime presentation="time" (ionChange)="timeValue = formatTime(popoverTime.value)"
                 ></ion-datetime>
               </ng-template>
             </ion-popover>
@@ -77,35 +71,29 @@
   </div>
 
   <div class="pmrAccessDiv">
-    <ion-icon name="fitness-outline"></ion-icon>
+    <img src="/assets/icon/disabled.png">
     <ion-label>Accès PMR</ion-label>
     <ion-toggle [(ngModel)]="PMRaccess"></ion-toggle>
   </div>
 
-  <div class="bottomDiv">
+  <div class="footer">
 
-    <ion-button fill="clear" (click)="createFavorite()" >
-      <ion-icon name="heart-outline"></ion-icon>
+    <ion-button class="favoriteBtn" fill="clear" (click)="toggleFavorite()" >
+      <ion-icon name="heart{{toggled ? '' : '-outline'}}"></ion-icon>
     </ion-button>
 
-    <ion-segment value="new" (ionChange)="segmentChanged($event)">
-      <ion-segment-button value="new" *ngIf="favoriteTrip">
+    <ion-segment (ionChange)="segmentChanged($event.target.value)" value="new">
+      <ion-segment-button value="new">
         <ion-label>Nouveau</ion-label>
       </ion-segment-button>
-      <ion-segment-button disabled *ngIf="!favoriteTrip">
-        <ion-label>Nouveau</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="favorites" *ngIf="!favoriteTrip">
-        <ion-label>Favoris</ion-label>
-      </ion-segment-button>
-      <ion-segment-button disabled *ngIf="favoriteTrip">
+      <ion-segment-button value="favorites">
         <ion-label>Favoris</ion-label>
       </ion-segment-button>
     </ion-segment>
 
-    <ion-button fill="clear" (click)="itinerary()">
-      <ion-icon name="navigate-outline"></ion-icon>
-      Go
+    <ion-button class="goBtn" fill="clear" (click)="itinerary()">
+      <ion-icon name="navigate"></ion-icon>
+      <ion-label>Go</ion-label>
     </ion-button>
   </div>
 

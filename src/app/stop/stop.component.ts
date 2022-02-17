@@ -1,6 +1,8 @@
+import { RouterModule, Routes } from '@angular/router';
 import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stop',
@@ -12,9 +14,15 @@ export class StopComponent implements OnInit {
   stopId: string;
   latitude: number;
   longitude: number;
+  routeButtons = false;
+  goToButton = false;
   schedules;
 
-  constructor(private api: ApiMetromobiliteService, private modalController: ModalController) {}
+  constructor(
+    private api: ApiMetromobiliteService,
+    private modalController: ModalController,
+    private router: Router
+  ) {}
 
   async ngOnInit() {
     this.schedules = (await this.api.getClusterSchedule(this.stopId)).filter(
@@ -39,18 +47,30 @@ export class StopComponent implements OnInit {
     return minutes + 'mn ';
   }
 
-  setFromPoint(){
+  setFromPoint() {
     this.modalController.dismiss({
       status: 'from',
       latitude: this.latitude,
-      longitude: this.longitude
-    })
+      longitude: this.longitude,
+    });
   }
-  setToPoint(){
+  setToPoint() {
     this.modalController.dismiss({
       status: 'to',
       latitude: this.latitude,
-      longitude: this.longitude
-    })
+      longitude: this.longitude,
+    });
+  }
+
+  goToMap() {
+    this.router.navigate([
+      '/tabs/map',
+      {
+        latitude: this.latitude,
+        longitude: this.longitude,
+      },
+    ], {
+      replaceUrl: true,
+    });
   }
 }

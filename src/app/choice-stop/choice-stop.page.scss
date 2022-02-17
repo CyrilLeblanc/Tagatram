@@ -1,13 +1,20 @@
-.stopName {
+@import "../../theme/variables.scss";
+
+div {
+    display: flex;
+
+    ion-searchbar {
+        text-align: left;
+        margin: 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+    ion-button {
+        height: 3rem;
+    }
+}
+
+ion-label {
     font-size: large;
     font-weight: bold;
-}
-
-
-.fixed {
-    text-align: end;
-}
-
-.searchBar {
-    text-align: left;
 }

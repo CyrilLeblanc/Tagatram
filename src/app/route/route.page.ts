@@ -14,6 +14,7 @@ export class RoutePage implements OnInit {
 
   favoriteTrip: boolean = false;
   PMRaccess: boolean = false;
+  toggled: boolean = false;
   listStops = {};
   listLine;
   allStops = [];
@@ -90,8 +91,12 @@ export class RoutePage implements OnInit {
     this.coorArrival = this.getStopCoorFromStopId(data.selectedStop);
   }
 
-  segmentChanged() {
-    if (this.favoriteTrip) {
+  toggleFavorite() {
+    this.toggled = !this.toggled;
+  }
+
+  segmentChanged(value: string) {
+    if (value == "new") {
       this.favoriteTrip = false;
     } else {
       this.favoriteTrip = true;
@@ -120,10 +125,7 @@ export class RoutePage implements OnInit {
 
   createFavorite() {
     if (this.startStop && this.endStop) {
-      this.favoriteListTrip.push([
-        this.getStopNameFromStopId(this.startStop),
-        this.getStopNameFromStopId(this.endStop),
-      ]);
+      this.favoriteListTrip.push([this.getStopNameFromStopId(this.startStop), this.getStopNameFromStopId(this.endStop)]);
     }
   }
 
