@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonDatetime, ModalController } from '@ionic/angular';
 import { ChoiceStopPage } from '../choice-stop/choice-stop.page';
+import { DetailItineraryPage } from '../detail-itinerary/detail-itinerary.page';
 import { ApiMetromobiliteService } from '../services/api-metromobilite.service';
 
 @Component({
@@ -30,11 +31,11 @@ export class RoutePage implements OnInit {
   dateFormat: string;
   coorDeparture: [number, number];
   coorArrival: [number, number];
-  chaipas;
+  route;
 
   constructor(
     private api: ApiMetromobiliteService,
-    public modalCtrl: ModalController,
+    public modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -154,7 +155,7 @@ export class RoutePage implements OnInit {
   }
 
   async itinerary() {
-    this.chaipas = await this.api.getRoute(
+    this.route = await this.api.getRoute(
       this.coorDeparture,
       this.coorArrival,
       this.dateFormat,
@@ -162,7 +163,14 @@ export class RoutePage implements OnInit {
       ['TRAM', 'WALK'],
       this.PMRaccess
     ) 
-    console.log(this.chaipas);
+    console.log(this.route);
+
+    const modal = await this.modalCtrl.create({
+      component: DetailItineraryPage,componentProps: {  
+        'route': this.route     
+      }   
+    });
+    modal.present();
   }
 
 
