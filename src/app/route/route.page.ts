@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonDatetime, ModalController } from '@ionic/angular';
+import { TouchSequence } from 'selenium-webdriver';
 import { ChoiceStopPage } from '../choice-stop/choice-stop.page';
 import { DetailItineraryPage } from '../detail-itinerary/detail-itinerary.page';
 import { ApiMetromobiliteService } from '../services/api-metromobilite.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-route',
@@ -36,8 +38,14 @@ export class RoutePage implements OnInit {
 
   constructor(
     private api: ApiMetromobiliteService,
-    public modalCtrl: ModalController
-  ) {}
+    public modalCtrl: ModalController,
+    private storage: Storage
+  ) {
+    this.storage.create();
+    this.storage.get('favorites').then((val) => {
+      this.favoriteListTrip = val;
+    });
+  }
 
   ngOnInit() {
     this.initialisation();
@@ -123,8 +131,8 @@ export class RoutePage implements OnInit {
     return coor;
   }
 
-  createFavorite() {
-    if (this.startStop && this.endStop) {
+  async createFavorite() {
+    if (this.startStop && this.endStop) {;
       this.favoriteListTrip.push([this.getStopNameFromStopId(this.startStop), this.getStopNameFromStopId(this.endStop)]);
     }
   }
@@ -165,5 +173,25 @@ export class RoutePage implements OnInit {
       },
     });
     modal.present();
+  }
+
+  selectFavoriteTrip(trip) {
+    this.startStop = this.getStopIdFromStopName(trip[0]);
+    this.endStop = this.getStopIdFromStopName(trip[1]);
+    this.depart = trip[0];
+    this.arrivee = trip[1];
+    this.coorDeparture = this.getStopCoorFromStopId(this.startStop);
+    this.coorArrival = this.getStopCoorFromStopId(this.endStop);
+    this.favoriteTrip = true;
+  }
+
+  getStopIdFromStopName(name) {
+    let id;
+    this.allStops.forEach((stop) => {
+      if (name == stop.stopName) {
+        id = stop.stopId;
+      }
+    });
+    return id;
   }
 }
