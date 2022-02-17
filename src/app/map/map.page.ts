@@ -1,8 +1,9 @@
+import { Route } from './../interfaces/route';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { ThemeChangerService } from './../services/theme-changer.service';
 import { Line } from './../interfaces/line';
 import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import * as Leaflet from 'leaflet';
 
@@ -18,9 +19,11 @@ export class MapPage {
   searchbar: string = '';
   overlays: { [key: string]: Leaflet.layerGroup } = {
     clusters: [],
+    route: [],
   };
   layer: { [key: string]: Leaflet.tileLayer } = {};
-  lines: Line[] = [];
+  fromPoint: [number, number];
+  toPoint: [number, number];
 
   constructor(
     private api: ApiMetromobiliteService,
@@ -34,7 +37,7 @@ export class MapPage {
       this.map = Leaflet.map('map').setView([45.1709, 5.7395], 12);
       this.map.zoomControl.remove();
 
-      this.layer.tag.addTo(this.map);
+      this.layer.tagMap.addTo(this.map);
 
       this.map.on('moveend', async () => {
         this.handleDisplayClusters();
@@ -45,13 +48,13 @@ export class MapPage {
   }
 
   updateTheme() {
-    if (this.map) this.map.removeLayer(this.layer.tag);
-    this.layer.tag = Leaflet.tileLayer(
+    if (this.map) this.map.removeLayer(this.layer.tagMap);
+    this.layer.tagMap = Leaflet.tileLayer(
       `https://data.mobilites-m.fr/carte${
         this.themeChanger.getTheme() === 'dark' ? '-dark' : ''
       }/{z}/{x}/{y}.png`
     );
-    if (this.map) this.map.addLayer(this.layer.tag);
+    if (this.map) this.map.addLayer(this.layer.tagMap);
   }
 
   async ionViewDidEnter() {
@@ -123,8 +126,8 @@ export class MapPage {
             this.displayModal(
               cluster.properties.name,
               cluster.properties.code,
-              cluster.geometry.coordinates[0],
-              cluster.geometry.coordinates[1]
+              cluster.geometry.coordinates[1],
+              cluster.geometry.coordinates[0]
             );
           })
         );
@@ -234,6 +237,61 @@ export class MapPage {
       breakpoints: [0, 0.3, 0.5, 0.8],
       initialBreakpoint: 0.5,
     });
+    modal.onDidDismiss().then((modalData) => {
+      if (modalData.data) {
+        this[`${modalData.data.status}Point`] = [
+          modalData.data.latitude,
+          modalData.data.longitude,
+        ];
+        if (this.fromPoint && this.toPoint) {
+          this.api.getRoute(this.fromPoint, this.toPoint).then((data) => {
+            this.displayRoute(data);
+          });
+        }
+      }
+    });
     await modal.present();
+  }
+
+  updateRouteInfo(status: 'from' | 'to', coord: [number, number]) {
+    this[`${status}Point`] = coord;
+    if (this.fromPoint && this.toPoint) {
+      this.api.getRoute(this.fromPoint, this.toPoint).then((data) => {
+        this.displayRoute(data);
+      });
+    }
+  }
+
+  removeRouteOverlay() {
+    this.overlays.route.forEach((layer) => {
+      this.map.removeLayer(layer);
+    });
+  }
+
+  displayRoute(route: Route) {
+    this.removeRouteOverlay();
+    if (route.error) {
+      console.error('ROUTER', route.error.msg);
+      return !route.error.noPath;
+    }
+    route.plan.itineraries[0].legs.forEach((leg) => {
+      this.overlays.routes = [];
+      let key = leg.mode === 'WALK' ? 'steps' : 'intermediateStops';
+      console.log(leg);
+      this.overlays.route.push(
+        Leaflet.polyline(
+          leg[key].map((item) => {
+            return [item.lat, item.lon];
+          }),
+          {
+            color: '#FFF',
+            weight: 20 
+          }
+        )
+      );
+    });
+    this.overlays.route.forEach((route) => {
+      route.addTo(this.map);
+    });
   }
 }

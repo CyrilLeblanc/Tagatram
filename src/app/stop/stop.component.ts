@@ -1,5 +1,6 @@
 import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-stop',
@@ -9,17 +10,20 @@ import { Component, OnInit } from '@angular/core';
 export class StopComponent implements OnInit {
   title: string;
   stopId: string;
+  latitude: number;
+  longitude: number;
   schedules;
 
-  constructor(private api: ApiMetromobiliteService) {}
+  constructor(private api: ApiMetromobiliteService, private modalController: ModalController) {}
 
   async ngOnInit() {
-    this.schedules = (await this.api.getClusterSchedule(this.stopId))
-      .filter((item) => {
+    this.schedules = (await this.api.getClusterSchedule(this.stopId)).filter(
+      (item) => {
         // filter to get only tram schedule
         let id = item.pattern.id.split(':');
         return id[0] === 'SEM' && id[1].length === 1;
-      })
+      }
+    );
   }
 
   renderTime(value: number): string {
@@ -29,9 +33,24 @@ export class StopComponent implements OnInit {
     if (new Date(value * 1000).getTime() > Date.now()) {
       date = new Date(0);
     }
-    let hours = date.getHours()-1;
-    let minutes = date.getMinutes();
+    let hours = date.getHours() - 1;
+    let minutes = date.getMinutes() + 1;
     let seconds = date.getSeconds();
     return minutes + 'mn ';
+  }
+
+  setFromPoint(){
+    this.modalController.dismiss({
+      status: 'from',
+      latitude: this.latitude,
+      longitude: this.longitude
+    })
+  }
+  setToPoint(){
+    this.modalController.dismiss({
+      status: 'to',
+      latitude: this.latitude,
+      longitude: this.longitude
+    })
   }
 }
