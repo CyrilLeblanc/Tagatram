@@ -10,7 +10,7 @@ import { ApiMetromobiliteService } from '../services/api-metromobilite.service';
   styleUrls: ['./route.page.scss'],
 })
 export class RoutePage implements OnInit {
-  @ViewChild(IonDatetime, {static: true }) datetime: IonDatetime;
+  @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
 
   favoriteTrip: boolean = false;
   PMRaccess: boolean = false;
@@ -36,7 +36,7 @@ export class RoutePage implements OnInit {
   constructor(
     private api: ApiMetromobiliteService,
     public modalCtrl: ModalController
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.initialisation();
@@ -44,22 +44,14 @@ export class RoutePage implements OnInit {
 
   async initialisation() {
     this.listLine = await this.api.getTramLineList();
-    console.log(this.listLine);
-
-    this.listLine.forEach(async line => {
-      await this.api.getLineSchedule(line.id).then(async stop => {
-        this.listStops[line.id] = stop["0"].arrets;
-        stop[0].arrets.forEach(data => {
+    this.listLine.forEach(async (line) => {
+      await this.api.getLineSchedule(line.id).then(async (stop) => {
+        this.listStops[line.id] = stop['0'].arrets;
+        stop[0].arrets.forEach((data) => {
           this.allStops.push(data);
-          console.log(data);
         });
       });
-      console.log(this.listStops);
-      console.log(this.listStops[line.id]);
-      console.log(this.allStops);
-
     });
-    console.log(this.listStops);
   }
 
   reverseStops() {
@@ -72,26 +64,27 @@ export class RoutePage implements OnInit {
 
   async openModalDeparture() {
     const modal = await this.modalCtrl.create({
-      component: ChoiceStopPage,componentProps: {  
-        'from': "departure"     
-      }   
+      component: ChoiceStopPage,
+      componentProps: {
+        from: 'departure',
+      },
     });
     modal.present();
     const { data } = await modal.onWillDismiss();
     this.startStop = data.selectedStop;
     this.depart = this.getStopNameFromStopId(data.selectedStop);
     this.coorDeparture = this.getStopCoorFromStopId(data.selectedStop);
-   }
+  }
 
   async openModalArrival() {
     const modal = await this.modalCtrl.create({
-      component: ChoiceStopPage,componentProps: {  
-        'from': "arrival"     
-      }   
+      component: ChoiceStopPage,
+      componentProps: {
+        from: 'arrival',
+      },
     });
     modal.present();
     const { data } = await modal.onWillDismiss();
-    console.log(data);
     this.endStop = data.selectedStop;
     this.arrivee = this.getStopNameFromStopId(data.selectedStop);
     this.coorArrival = this.getStopCoorFromStopId(data.selectedStop);
@@ -100,13 +93,14 @@ export class RoutePage implements OnInit {
   segmentChanged() {
     if (this.favoriteTrip) {
       this.favoriteTrip = false;
+    } else {
+      this.favoriteTrip = true;
     }
-    else { this.favoriteTrip = true; }
   }
 
   getStopNameFromStopId(id) {
     let name: string;
-    this.allStops.forEach(stop => {
+    this.allStops.forEach((stop) => {
       if (id == stop.stopId) {
         name = stop.stopName;
       }
@@ -116,23 +110,21 @@ export class RoutePage implements OnInit {
 
   getStopCoorFromStopId(id) {
     let coor: [number, number];
-    this.allStops.forEach(stop => {
+    this.allStops.forEach((stop) => {
       if (id == stop.stopId) {
         coor = [stop.parentStation.lat, stop.parentStation.lon];
       }
     });
-    console.log(coor);
     return coor;
   }
 
   createFavorite() {
-    console.log(this.startStop);
-    console.log(this.endStop);
     if (this.startStop && this.endStop) {
-      this.favoriteListTrip.push([this.getStopNameFromStopId(this.startStop), this.getStopNameFromStopId(this.endStop)]);
-      console.log('new favorite');
+      this.favoriteListTrip.push([
+        this.getStopNameFromStopId(this.startStop),
+        this.getStopNameFromStopId(this.endStop),
+      ]);
     }
-    console.log(this.favoriteListTrip);
   }
 
   formatTime(arg) {
@@ -141,17 +133,17 @@ export class RoutePage implements OnInit {
     let timeDate = new Date(this.hourSelected);
     this.timeString = timeDate.getHours() + ' : ' + timeDate.getMinutes();
     this.timeFormat = timeDate.getHours() + ':' + timeDate.getMinutes();
-    console.log(this.timeFormat);
   }
 
   formatDate(arg) {
     let date = Date.parse(arg);
     this.daySelected = new Date(date).setHours(0, 0, 0, 0);
-    let dayDate = new Date(this.daySelected)
+    let dayDate = new Date(this.daySelected);
     let mois = dayDate.getMonth() + 1;
-    this.dateString = dayDate.getDate() +'/'+ mois +'/'+ dayDate.getFullYear();
-    this.dateFormat = dayDate.getFullYear() + '-' + mois + '-' + dayDate.getDate();
-    console.log(this.dateFormat);
+    this.dateString =
+      dayDate.getDate() + '/' + mois + '/' + dayDate.getFullYear();
+    this.dateFormat =
+      dayDate.getFullYear() + '-' + mois + '-' + dayDate.getDate();
   }
 
   async itinerary() {
@@ -162,17 +154,14 @@ export class RoutePage implements OnInit {
       this.timeFormat,
       ['TRAM', 'WALK'],
       this.PMRaccess
-    ) 
-    console.log(this.route);
+    );
 
     const modal = await this.modalCtrl.create({
-      component: DetailItineraryPage,componentProps: {  
-        'route': this.route     
-      }   
+      component: DetailItineraryPage,
+      componentProps: {
+        route: this.route,
+      },
     });
     modal.present();
   }
-
-
-
 }
