@@ -9,13 +9,13 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button class="stopButton" fill="clear" (click)="openModalDeparture()">
+          <ion-button class="stopBtn" fill="clear" (click)="openModalDeparture()">
             <span>{{ depart }}</span>
           </ion-button>
-          <ion-button class="reverseButton" fill="clear" (click)="reverseStops()">
+          <ion-button class="reverseBtn" fill="clear" (click)="reverseStops()">
             <ion-icon name="swap-vertical"></ion-icon>
           </ion-button>
-          <ion-button class="stopButton" fill="clear" (click)="openModalArrival()">
+          <ion-button class="stopBtn" fill="clear" (click)="openModalArrival()">
             <span>{{ arrivee }}</span>
           </ion-button>
         </ion-col>
@@ -86,30 +86,24 @@
     <ion-toggle [(ngModel)]="PMRaccess"></ion-toggle>
   </div>
 
-  <div class="bottomDiv">
+  <div class="footer">
 
-    <ion-button fill="clear" (click)="createFavorite()" >
-      <ion-icon name="heart-outline"></ion-icon>
+    <ion-button class="favoriteBtn" fill="clear" (click)="toggleFavorite()" >
+      <ion-icon name="heart{{toggled ? '' : '-outline'}}"></ion-icon>
     </ion-button>
 
-    <ion-segment value="new" (ionChange)="segmentChanged($event)">
-      <ion-segment-button value="new" *ngIf="favoriteTrip">
+    <ion-segment (ionChange)="segmentChanged($event.target.value)" value="new">
+      <ion-segment-button value="new">
         <ion-label>Nouveau</ion-label>
       </ion-segment-button>
-      <ion-segment-button disabled *ngIf="!favoriteTrip">
-        <ion-label>Nouveau</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="favorites" *ngIf="!favoriteTrip">
-        <ion-label>Favoris</ion-label>
-      </ion-segment-button>
-      <ion-segment-button disabled *ngIf="favoriteTrip">
+      <ion-segment-button value="favorites">
         <ion-label>Favoris</ion-label>
       </ion-segment-button>
     </ion-segment>
 
-    <ion-button fill="clear" (click)="itinerary()">
-      <ion-icon name="navigate-outline"></ion-icon>
-      Go
+    <ion-button class="goBtn" fill="clear" (click)="itinerary()">
+      <ion-icon name="navigate"></ion-icon>
+      <ion-label>Go</ion-label>
     </ion-button>
   </div>
 

@@ -67,6 +67,37 @@ ion-toggle {
   --handle-background-checked: var(--ion-color-accent);
 }
 
+ion-segment {
+  margin: auto 0.5rem;
+  border-radius: 0.5rem;
+  height: fit-content;
+
+  ion-segment-button {
+    margin: 0.25rem;
+    --indicator-color: var(--ion-color-accent-tint);
+    font-size: smaller;
+  }
+}
+
+.footer {
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 8%;
+  margin: 2% 10%;
+  border-radius: 0.5rem;
+  
+  .goBtn {
+
+    background-color: var(--ion-color-accent-tint);
+    border-radius: 2rem;
+
+    ion-icon {
+       font-size: 1.5rem;
+    }
+  }
+}
+
 ion-app.dark {
 
   ion-toolbar {
@@ -83,6 +114,19 @@ ion-app.dark {
 
   ion-toggle {
     --background: var(--ion-color-dark-tint);
+  }
+
+  ion-segment {
+    --background: var(--ion-color-dark-tint);
+    color: var(--ion-color-light-shade);
+  }
+
+  .reverseBtn {
+  
+    ion-icon {
+      color: var(--ion-color-light-shade);
+      font-size: larger;
+    }
   }
 
   .contentDiv {
@@ -128,6 +172,20 @@ ion-app.dark {
       box-shadow: 0.25rem 0.5rem 1rem black;
     }
   }
+
+  .footer {
+    
+    .goBtn {
+
+      ion-label {
+        color: var(--ion-color-light-shade);
+      }
+  
+      ion-icon {
+        color: var(--ion-color-light-shade);
+      }
+    }
+  }
 }
 
 ion-app.light {
@@ -146,6 +204,19 @@ ion-app.light {
 
   ion-toggle {
     --background: var(--ion-color-light);
+  }
+
+  ion-segment {
+    --background: var(--ion-color-light);
+    color: var(--ion-color-dark-tint);
+  }
+
+  .reverseBtn {
+  
+    ion-icon {
+      color: var(--ion-color-dark-shade);
+      font-size: larger;
+    }
   }
 
   .contentDiv {
@@ -189,6 +260,20 @@ ion-app.light {
     ion-button {
       background-color: white;
       box-shadow: 0.25rem 0.5rem 1rem var(--ion-color-dark-tint);
+    }
+  }
+
+  .footer {
+    
+    .goBtn {
+
+      ion-label {
+        color: var(--ion-color-dark-tint);
+      }
+  
+      ion-icon {
+        color: var(--ion-color-dark-tint);
+      }
     }
   }
 }
