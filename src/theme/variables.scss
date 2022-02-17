@@ -97,6 +97,11 @@ ion-card {
   }
 }
 
+ion-progress-bar {
+  --background: var(--ion-color-light-shade);
+  --progress-background: var(--ion-color-accent-tint);
+}
+
 .footer {
   position: fixed;
   right: 0;

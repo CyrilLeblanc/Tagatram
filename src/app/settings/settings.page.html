@@ -33,7 +33,7 @@
           <ion-item lines="none">
             <ion-label>Page d'accueil</ion-label>
             <ion-select class="selectMainPage" [interfaceOptions]="customPopoverOptions" interface="popover"
-                [(ngModel)]="selectMainPage" (ionChange)="dynamicMainPage()">
+                [(ngModel)]="selectMainPage" (ionChange)="dynamicMainPage()" disabled>
                 <ion-select-option class="selectMainPageOption" [value]="page.class" *ngFor="let page of mainPage;let i = indexs">
                   {{page.name}}
                 </ion-select-option>
