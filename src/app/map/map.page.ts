@@ -106,7 +106,7 @@ export class MapPage {
         if (exist) return;
         this.overlays.clusters.push(
           Leaflet.circleMarker(
-            [cluster.geometry.coordinates[1], cluster.geometry.coordinates[0]],
+            [cluster.geometry.coordinates[0], cluster.geometry.coordinates[1]],
             {
               radius: 13,
               color: '#000',
