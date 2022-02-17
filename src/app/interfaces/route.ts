@@ -1,75 +1,97 @@
 export interface Route {
-  debugOutput: {
-    pathCalculationTime: number;
-    pathTime: number[];
-    precalculationTime: number;
-    renderingTime: number;
-    timedOut: boolean;
-    totalTime: number;
-  };
-  elevationMetadata: {
-    ellipsoidToGeoidDifference: number;
-    geoidElevation: boolean;
-  };
   plan: {
-    data: number;
+    date: number;
+
     from: {
       lat: number;
       lon: number;
-      name: string;
-      orig: string;
+      name: 'Origin';
       vertexType: string;
     };
+
     to: {
       lat: number;
       lon: number;
-      name: string;
-      orig: string;
+      name: 'Destination';
       vertexType: string;
     };
+
     itineraries: {
-      duration: number;
+      endTime: number; // timestamp in milliseconds
+      startTime: number; // timestamp in milliseconds
+      duration: number; // duration total in seconds
+      transitTime: number; // duration in transit in seconds
+      waitingTime: number; // duration in waiting in seconds
+      walkTime: number; // duration in walking in seconds
+      walkDistance: number; // distance in meters
+
       legs: {
-        elevationGained: number;
-        elevationLost: number;
-        endTime: number;
-        fare: {
-          details: {
-            regular: {
-              fareId: string;
-              price: {
-                currency: {
-                  currency: string;
-                  currencyCode: string;
-                  defaultFractionDigit: number;
-                  symbol: string;
-                };
-                cents: number;
-              };
-              routes: string[];
-            };
-          };
-          fare: {
-            regular: {
-              cents: number;
-              currency: {
-                currency: string;
-                currencyCode: string;
-                defaultFractionDigit: number;
-                symbol: string;
-              };
-            };
-          };
-        };
+        distance: number;
+        duration: number;
         startTime: number;
-        tooSloped: boolean;
-        transfers: number;
-        transitTime: number;
-        waitingTime: number;
-        walkDistance: number;
-        walkLimitExceeded: boolean;
-        walkTime: number;
+        endTime: number;
+        mode:
+          | 'TRANSIT'
+          | 'WALK'
+          | 'BICYCLE'
+          | 'TRAM'
+          | 'BUS'
+          | 'FERRY'
+          | 'GONDOLA'
+          | 'TRAINISH'
+          | 'OTHER';
+        route: string; // nom de la ligne
+        routeColor: string;
+        routeId: string;
+        routeLongName: string;
+        routeShortName: string;
+        routeTextColor: string;
+
+        from: {
+          lat: number;
+          lon: number;
+          name: string;
+          vertexType: string;
+        };
+        to: {
+          lat: number;
+          lon: number;
+          name: string;
+          vertexType: string;
+        };
+        steps: {
+          absoluteDirection:
+            | 'NORTH'
+            | 'EAST'
+            | 'SOUTH'
+            | 'WEST'
+            | 'NORTHEAST'
+            | 'SOUTHEAST'
+            | 'SOUTHWEST'
+            | 'NORTHWEST';
+          distance: number;
+          lat: number;
+          lon: number;
+          streetName: string;
+          relativeDirection: string;
+        }[];
+        intermediateStops: {
+          arrival: number;
+          departure: number;
+          lat: number;
+          lon: number;
+          name: string;
+          stopCode: string;
+          stopId: string;
+          vertexType: string;
+        }[];
       }[];
-    };
+    }[];
+  };
+  error?: {
+    id: number;
+    msg: string;
+    message: string;
+    noPath: boolean;
   };
 }
