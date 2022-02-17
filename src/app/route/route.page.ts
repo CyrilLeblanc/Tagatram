@@ -13,6 +13,7 @@ export class RoutePage implements OnInit {
 
   favoriteTrip: boolean = false;
   PMRaccess: boolean = false;
+  toggled: boolean = false;
   listStops = {};
   listLine;
   allStops = [];
@@ -39,22 +40,16 @@ export class RoutePage implements OnInit {
 
   async initialisation() {
     this.listLine = await this.api.getTramLineList();
-    console.log(this.listLine);
 
     this.listLine.forEach(async line => {
       await this.api.getLineSchedule(line.id).then(async stop => {
         this.listStops[line.id] = stop["0"].arrets;
         stop[0].arrets.forEach(data => {
           this.allStops.push(data);
-          console.log(data);
         });
       });
-      console.log(this.listStops);
-      console.log(this.listStops[line.id]);
-      console.log(this.allStops);
 
     });
-    console.log(this.listStops);
   }
 
   reverseStops() {
@@ -85,13 +80,16 @@ export class RoutePage implements OnInit {
     });
     modal.present();
     const { data } = await modal.onWillDismiss();
-    console.log(data);
     this.endStop = data.selectedStop;
     this.arrivee = this.getStopNameFromStopId(data.selectedStop);
   }
 
-  segmentChanged() {
-    if (this.favoriteTrip) {
+  toggleFavorite() {
+    this.toggled = !this.toggled;
+  }
+
+  segmentChanged(value: string) {
+    if (value == "new") {
       this.favoriteTrip = false;
     }
     else { this.favoriteTrip = true; }
@@ -108,13 +106,9 @@ export class RoutePage implements OnInit {
   }
 
   createFavorite() {
-    console.log(this.startStop);
-    console.log(this.endStop);
     if (this.startStop && this.endStop) {
       this.favoriteListTrip.push([this.getStopNameFromStopId(this.startStop), this.getStopNameFromStopId(this.endStop)]);
-      console.log('new favorite');
     }
-    console.log(this.favoriteListTrip);
   }
 
   formatTime(arg) {
