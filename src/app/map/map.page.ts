@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Route } from './../interfaces/route';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { ThemeChangerService } from './../services/theme-changer.service';
@@ -5,6 +6,7 @@ import { Line } from './../interfaces/line';
 import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
 import { Component } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
+import { OnDestroy } from '@angular/core';
 import * as Leaflet from 'leaflet';
 
 import { StopComponent } from '../stop/stop.component';
@@ -13,7 +15,7 @@ import { StopComponent } from '../stop/stop.component';
   templateUrl: './map.page.html',
   styleUrls: ['./map.page.scss'],
 })
-export class MapPage {
+export class MapPage implements OnDestroy {
   locationEnabled = false;
   map: Leaflet.Map;
   searchbar: string = '';
@@ -30,11 +32,20 @@ export class MapPage {
     private geolocation: Geolocation,
     private modalController: ModalController,
     private themeChanger: ThemeChangerService,
-    private alertController: AlertController
-  ) {}
+    private alertController: AlertController,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.params.subscribe((params) => {
+      if (params.latitude && params.longitude && this.map) {
+        this.map.setView([params.latitude, params.longitude], 15);
+      }
+    });
+  }
 
   async loadMap() {
-    if (!this.map) {
+    console.log(this);
+    if (this.map === undefined) {
       this.map = Leaflet.map('map').setView([45.1709, 5.7395], 12);
       this.map.zoomControl.remove();
 
@@ -64,6 +75,10 @@ export class MapPage {
       this.loadLines();
       this.loadClusters();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.map.remove();
   }
   // fetch lines of tram and draw them on map
   async loadLines() {
@@ -227,6 +242,7 @@ export class MapPage {
         stopId: stopId,
         latitude: latitude,
         longitude: longitude,
+        routeButtons: true,
       },
       breakpoints: [0, 0.3, 0.5, 0.8],
       initialBreakpoint: 0.5,
@@ -289,9 +305,7 @@ export class MapPage {
       });
 
       if (index !== 0 && lastCoord !== undefined) {
-        coordList.unshift(
-          lastCoord
-        );
+        coordList.unshift(lastCoord);
       }
 
       this.overlays.route.push(
