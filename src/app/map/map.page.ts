@@ -116,18 +116,12 @@ export class MapPage {
             }
           ).on('click', () => {
             // center view on cluster
-            this.map.setView(
-              [
-                cluster.geometry.coordinates[1],
-                cluster.geometry.coordinates[0],
-              ],
-              15
-            );
+            this.map.setView(cluster.geometry.coordinates, 15);
             this.displayModal(
               cluster.properties.name,
               cluster.properties.code,
-              cluster.geometry.coordinates[1],
-              cluster.geometry.coordinates[0]
+              cluster.geometry.coordinates[0],
+              cluster.geometry.coordinates[1]
             );
           })
         );
@@ -285,7 +279,7 @@ export class MapPage {
           }),
           {
             color: '#FFF',
-            weight: 20 
+            weight: 20,
           }
         )
       );
