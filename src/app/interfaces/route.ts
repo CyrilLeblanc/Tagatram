@@ -36,9 +36,7 @@ export interface Route {
           | 'BICYCLE'
           | 'TRAM'
           | 'BUS'
-          | 'FERRY'
           | 'GONDOLA'
-          | 'TRAINISH'
           | 'OTHER';
         route: string; // nom de la ligne
         routeColor: string;

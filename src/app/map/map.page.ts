@@ -4,7 +4,7 @@ import { ThemeChangerService } from './../services/theme-changer.service';
 import { Line } from './../interfaces/line';
 import { ApiMetromobiliteService } from './../services/api-metromobilite.service';
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import * as Leaflet from 'leaflet';
 
 import { StopComponent } from '../stop/stop.component';
@@ -29,7 +29,8 @@ export class MapPage {
     private api: ApiMetromobiliteService,
     private geolocation: Geolocation,
     private modalController: ModalController,
-    private themeChanger: ThemeChangerService
+    private themeChanger: ThemeChangerService,
+    private alertController: AlertController
   ) {}
 
   async loadMap() {
@@ -76,8 +77,7 @@ export class MapPage {
             color: `#${line.color}`,
           }
         ),
-      ]);
-      this.map.addLayer(this.overlays[line.id]);
+      ]).addTo(this.map);
     });
   }
 
@@ -202,7 +202,7 @@ export class MapPage {
         .toLowerCase()
         .includes(value.toLowerCase())
         ? 1
-        : 0.05;
+        : 0.1;
       cluster.setStyle({ fillOpacity: opacity, opacity: opacity });
       if (opacity === 1) {
         clusters.push(cluster);
@@ -263,29 +263,42 @@ export class MapPage {
   }
 
   displayRoute(route: Route) {
+    console.log(route);
     this.removeRouteOverlay();
     if (route.error) {
       console.error('ROUTER', route.error.msg);
+      this.alertController
+        .create({
+          header: route.error.message,
+          message: route.error.msg,
+        })
+        .then((modal) => {
+          modal.present();
+        });
       return !route.error.noPath;
     }
-    route.plan.itineraries[0].legs.forEach((leg) => {
-      this.overlays.routes = [];
+    this.overlays.routes = [];
+    let firstCoord: [number, number], lastCoord: [number, number];
+    route.plan.itineraries[0].legs.forEach((leg, index) => {
       let key = leg.mode === 'WALK' ? 'steps' : 'intermediateStops';
-      console.log(leg);
+      if (index === 0) {
+        firstCoord = [leg[key][leg[key].length - 1].lat, leg[key][leg[key].length - 1].lon];
+      } else if (index === route.plan.itineraries[0].legs.length - 1) {
+        lastCoord = [leg[key][0].lat, leg[key][0].lon];
+      }
+      console.log(firstCoord, lastCoord);
+      let coordList = leg[key].map((item) => {
+        return [item.lat, item.lon];
+      });
+
       this.overlays.route.push(
-        Leaflet.polyline(
-          leg[key].map((item) => {
-            return [item.lat, item.lon];
-          }),
-          {
-            color: '#FFF',
-            weight: 20,
-          }
-        )
+        Leaflet.polyline(coordList, {
+          color: `#${key === 'steps' ? 'b22d24' : leg.routeColor}`,
+          weight: 12,
+        })
+          .addTo(this.map)
+          .bringToBack()
       );
-    });
-    this.overlays.route.forEach((route) => {
-      route.addTo(this.map);
     });
   }
 }
