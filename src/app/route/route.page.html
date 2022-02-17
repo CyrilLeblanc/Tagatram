@@ -9,15 +9,11 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button class="stopButton" fill="clear" (click)="openModalDeparture()">
-            <span>{{ depart }}</span>
-          </ion-button>
+          <ion-input placeholder="Départ" [(ngModel)]="depart" (click)="openModalDeparture()" class="stopButton" fill="clear"></ion-input>
           <ion-button class="reverseButton" fill="clear" (click)="reverseStops()">
             <ion-icon name="swap-vertical"></ion-icon>
           </ion-button>
-          <ion-button class="stopButton" fill="clear" (click)="openModalArrival()">
-            <span>{{ arrivee }}</span>
-          </ion-button>
+          <ion-input placeholder="Arrivée" [(ngModel)]="arrivee" (click)="openModalArrival()" class="stopButton" fill="clear"></ion-input>
         </ion-col>
       </ion-row>
     </ion-grid>
