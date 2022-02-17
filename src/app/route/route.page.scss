@@ -62,8 +62,8 @@
 .pmrAccessDiv {
    display: flex;
    
-   ion-icon {
-      font-size: xx-large;
+   img {
+      width: 2rem;
       margin: auto 0.1rem;
    }
 
@@ -76,4 +76,19 @@
 
 .footer {
    display: flex;
+
+   .favoriteBtn {
+      margin: auto;
+      font-size: large;
+   }
+
+   .goBtn {
+     margin: auto;
+     background-color: var(--ion-color-accent-tint);
+     border-radius: 2rem;
+ 
+     ion-icon {
+       font-size: large;
+     }
+   }
 }
