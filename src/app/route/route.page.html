@@ -21,7 +21,7 @@
 
   <div *ngIf="favoriteTrip">
     <ion-list>
-      <ion-item *ngFor="let trip of favoriteListTrip">
+      <ion-item *ngFor="let trip of favoriteListTrip" (click)="selectFavoriteTrip(trip)">
         <ion-label>{{ trip[0] }} -> {{ trip[1] }}</ion-label>
       </ion-item>
     </ion-list>
