@@ -25,7 +25,6 @@ export class LinesPage implements OnInit {
 
   async initialisation() {
     this.lineList = await this.api.getTramLineList();
-    console.log(this.lineList);
 
     this.lineList.forEach(async line => {
       this.lineListDetailCondition[line.id] = false;
@@ -36,7 +35,6 @@ export class LinesPage implements OnInit {
         this.stopList[line.id] = stops[0].arrets;
       });
     });
-    console.log(this.stopList);
   }
   
   detail(arg) {
