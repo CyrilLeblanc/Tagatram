@@ -37,7 +37,6 @@ export class MapPage implements OnDestroy {
   ) {}
 
   async loadMap() {
-    console.log(this);
     if (this.map === undefined) {
       this.map = Leaflet.map('map').setView([45.1709, 5.7395], 12);
       this.map.zoomControl.remove();
