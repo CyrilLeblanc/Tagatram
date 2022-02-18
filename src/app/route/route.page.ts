@@ -43,7 +43,7 @@ export class RoutePage implements OnInit {
   ) {
     this.storage.create();
     this.storage.get('favorites').then((val) => {
-      this.favoriteListTrip = val;
+      this.favoriteListTrip = val ? val : [];
     });
   }
 
@@ -134,6 +134,7 @@ export class RoutePage implements OnInit {
   async createFavorite() {
     if (this.startStop && this.endStop) {;
       this.favoriteListTrip.push([this.getStopNameFromStopId(this.startStop), this.getStopNameFromStopId(this.endStop)]);
+      this.storage.set('favorites', this.favoriteListTrip);
     }
   }
 
