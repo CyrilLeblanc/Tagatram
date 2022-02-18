@@ -31,10 +31,14 @@ export class DetailItineraryPage implements OnInit {
     }
     this.legs = this.route.plan.itineraries[this.chosenItinerary].legs;
     this.getEachSteps();
+    console.log(this.route);
   }
 
   getEachSteps() {
     this.legs.forEach((leg) => {
+      let time = new Date(leg.startTime);
+      let formatedTime = time.getHours() + 'h' + time.getMinutes();
+      this.itinerary.push(`${formatedTime}`)
       if (leg.mode == 'TRAM') {
         let durationMinute = Math.trunc(leg.duration / 60);
         let explain = `Prendre le tram ${leg.routeShortName} direction ${leg.headsign} de l'arrêt ${leg.from.name} jusqu'à l'arrêt ${leg.to.name}.
@@ -69,6 +73,9 @@ export class DetailItineraryPage implements OnInit {
         });
       }
     });
+    // heure d'arrivée prévue
+    let arriveeTime = new Date(this.legs[this.legs.length - 1].endTime);
+    this.itinerary.push(`Arrivée prévue à ${arriveeTime.getHours() + 'h' + arriveeTime.getMinutes()}`);
   }
 
   dismiss() {

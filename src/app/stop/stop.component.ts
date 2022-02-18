@@ -46,8 +46,6 @@ export class StopComponent implements OnInit {
         item.pattern.id.split(':')[0] + ':' + item.pattern.id.split(':')[1];
       item.lineDescription = (await this.api.getLineDescription(id)).features[0];
     });
-    console.log(this.schedules);
-
   }
 
   renderTime(value: number): string {

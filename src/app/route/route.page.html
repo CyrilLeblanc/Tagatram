@@ -37,7 +37,7 @@
             <ion-text slot="end">{{ dateValue }}</ion-text>
             <ion-popover trigger="open-date-input-1" show-backdrop="false">
               <ng-template>
-                <ion-datetime #popoverDate presentation="date" (ionChange)="dateValue = formatDate(popoverDate.value)"
+                <ion-datetime #popoverDate presentation="date" (ionChange)="dateValue = formatDate(popoverDate.value);" [(ngModel)]="dateValue" value="{{ dateValue }}"
                 ></ion-datetime>
               </ng-template>
             </ion-popover>
@@ -79,7 +79,7 @@
   <div class="footer">
 
     <ion-button class="favoriteBtn" fill="clear" (click)="createFavorite()" >
-      <ion-icon name="heart{{toggled ? '' : '-outline'}}"></ion-icon>
+      <ion-icon name="heart{{favoriteTrip ? '' : '-outline'}}"></ion-icon>
     </ion-button>
 
     <ion-segment (ionChange)="segmentChanged($event.target.value)" value="new">
