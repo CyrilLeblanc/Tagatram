@@ -166,7 +166,6 @@ export class RoutePage implements OnInit {
       ['TRAM', 'WALK'],
       this.PMRaccess
     );
-    console.log(this.route)
 
     const modal = await this.modalCtrl.create({
       component: DetailItineraryPage,
