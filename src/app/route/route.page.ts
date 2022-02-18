@@ -30,8 +30,8 @@ export class RoutePage implements OnInit {
   daySelected: number;
   dateString: String = 'Date';
   timeString: String = 'Heure';
-  timeFormat: string;
-  dateFormat: string;
+  timeFormat: string; //= `${new Date().getHours()}:${new Date().getMinutes()}`;
+  dateFormat: string; //= `${new Date().getFullYear()}-${(new Date().getMonth())+1}-${new Date().getDay()}`; // format YYYY-MM-DD
   coorDeparture: [number, number];
   coorArrival: [number, number];
   route;
@@ -43,7 +43,7 @@ export class RoutePage implements OnInit {
   ) {
     this.storage.create();
     this.storage.get('favorites').then((val) => {
-      this.favoriteListTrip = val;
+      this.favoriteListTrip = val ? val : [];
     });
   }
 
@@ -134,6 +134,7 @@ export class RoutePage implements OnInit {
   async createFavorite() {
     if (this.startStop && this.endStop) {;
       this.favoriteListTrip.push([this.getStopNameFromStopId(this.startStop), this.getStopNameFromStopId(this.endStop)]);
+      this.storage.set('favorites', this.favoriteListTrip);
     }
   }
 
@@ -142,7 +143,7 @@ export class RoutePage implements OnInit {
     this.hourSelected = time % 86400000;
     let timeDate = new Date(this.hourSelected);
     this.timeString = timeDate.getHours() + ' : ' + timeDate.getMinutes();
-    this.timeFormat = timeDate.getHours() + ':' + timeDate.getMinutes();
+    this.timeFormat = timeDate.getHours() + 1 + ':' + timeDate.getMinutes();
   }
 
   formatDate(arg) {
@@ -165,6 +166,7 @@ export class RoutePage implements OnInit {
       ['TRAM', 'WALK'],
       this.PMRaccess
     );
+    console.log(this.route)
 
     const modal = await this.modalCtrl.create({
       component: DetailItineraryPage,
