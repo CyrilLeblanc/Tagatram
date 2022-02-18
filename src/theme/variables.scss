@@ -120,18 +120,23 @@ ion-progress-bar {
   border-radius: 0.5rem;
 }
 
-.stopGrid {
-  display: block;
+.stopDiv {
+  display: flex;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
 
-  ion-row {
-    margin: 0.5rem;
-    border-radius: 0.5rem;
-
-    ion-col {
-      margin: auto 0.25rem;
-      text-align: center;
-      border-radius: 20px;
+  div {
+    margin: auto 0.25rem;
+    text-align: center;
+    padding: 0.5rem;
+    width: 43%; 
+    
+    &:first-child {
+      width: 7%;
+      border-radius: 50%;
+      margin-left: 2rem;
     }
+
   }
 }
 
@@ -180,13 +185,10 @@ ion-app.dark {
     }
   }
 
-  .stopGrid {
-  
-    ion-row {
-      background-color: var(--ion-color-dark);
-      color: var(--ion-color-light);
-      box-shadow: 0.25rem 0.25rem 1rem black;
-    }
+  .stopDiv {
+    background-color: var(--ion-color-dark);
+    color: var(--ion-color-light);
+    box-shadow: 0.25rem 0.25rem 1rem black;
   }
 
   .closeBtn {
@@ -332,13 +334,10 @@ ion-app.light {
     }
   }
 
-  .stopGrid {
-  
-    ion-row {
-      background-color: var(--ion-color-light);
-      color: var(--ion-color-dark);
-      box-shadow: 0.25rem 0.25rem 1rem var(--ion-color-dark);
-    }
+  .stopDiv {
+    background-color: var(--ion-color-light);
+    color: var(--ion-color-dark);
+    box-shadow: 0.25rem 0.25rem 1rem var(--ion-color-dark);
   }
 
   .closeBtn {
