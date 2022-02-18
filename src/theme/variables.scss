@@ -108,7 +108,7 @@ ion-progress-bar {
   position: fixed;
   right: 0;
   left: 0;
-  bottom: 8%;
+  bottom: -1rem;
   margin: 2% 10%;
   border-radius: 0.5rem;
 }
@@ -287,6 +287,10 @@ ion-app.dark {
       }
     }
   }
+
+  #itinerary {
+    color: var(--ion-color-light-shade);
+  }
 }
 
 ion-app.light {
@@ -425,5 +429,9 @@ ion-app.light {
         color: var(--ion-color-dark-tint);
       }
     }
+  }
+
+  #itinerary {
+    color: var(--ion-color-dark);
   }
 }
