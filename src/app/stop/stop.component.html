@@ -1,27 +1,23 @@
 <ion-header>
   <ion-toolbar>
     <br />
-    <ion-label>
+    <ion-title>
       {{ title }}
-    </ion-label>
+    </ion-title>
     <div *ngIf="routeButtons">
-      <ion-button (click)="setFromPoint()">Point de départ</ion-button>
-      <ion-button (click)="setToPoint()">Point d'arrivée</ion-button>
+      <ion-button (click)="setFromPoint()" fill="clear">Point de départ</ion-button>
+      <ion-button (click)="setToPoint()" fill="clear">Point d'arrivée</ion-button>
     </div>
     <div *ngIf="goToButton">
-      <ion-button (click)="goToMap()">Aller</ion-button>
+      <ion-button (click)="goToMap()" fill="clear">Aller</ion-button>
     </div>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-progress-bar
-    type="indeterminate"
-    *ngIf="schedules === undefined"
-  ></ion-progress-bar>
-  <div class="footer"></div>
+  <ion-progress-bar type="indeterminate" *ngIf="schedules === undefined" ></ion-progress-bar>
   <ion-list>
     <ion-item *ngFor="let schedule of schedules">
-      <ion-label>
+      <ion-label style="background-color: rgb({{schedule.lineDescription.properties.COULEUR}}); color: rgb({{schedule.lineDescription.properties.COULEUR_TEXTE}})">
         {{ schedule.pattern.id.split(":")[1] }}
       </ion-label>
       <ion-label size="small">

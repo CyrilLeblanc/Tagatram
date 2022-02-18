@@ -39,7 +39,7 @@ ion-button {
 
     ion-icon {
         display: table-cell;
-        font-size: large;
+        font-size: 2rem;
         padding-left: 2%;
     }
 }
@@ -49,6 +49,14 @@ ion-item {
     margin: 1%;
 
     ion-icon {
+        margin-right: 0.5rem;
         transform: rotate(90deg);
+        color: var(--ion-color-accent);
+        font-size: 2rem;
     }
+}
+
+h2 {
+    font-size: large;
+    font-weight: bold;
 }

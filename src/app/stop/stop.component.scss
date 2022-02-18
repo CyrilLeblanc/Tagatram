@@ -1,7 +1,20 @@
-ion-grid{
-    display: inline-block;
-}
+@import "../../theme/variables.scss";
 
-.footer{
-    display: block;
+ion-toolbar {
+    padding: 1rem;
+
+    ion-title {
+        font-weight: bolder;
+    }
+
+    div {
+        margin: 1rem auto 0 auto;
+        text-align: center;
+
+        ion-button {
+            width: fit-content;
+            border: solid 2px var(--ion-color-accent);
+            border-radius: 0.5rem;
+        }
+    }
 }

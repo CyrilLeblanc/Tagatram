@@ -7,9 +7,8 @@ import { ApiMetromobiliteService } from './../services/api-metromobilite.service
 import { Component } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
 import { OnDestroy } from '@angular/core';
-import * as Leaflet from 'leaflet';
-
 import { StopComponent } from '../stop/stop.component';
+import * as Leaflet from 'leaflet';
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
@@ -35,13 +34,7 @@ export class MapPage implements OnDestroy {
     private alertController: AlertController,
     private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {
-    this.activatedRoute.params.subscribe((params) => {
-      if (params.latitude && params.longitude && this.map) {
-        this.map.setView([params.latitude, params.longitude], 15);
-      }
-    });
-  }
+  ) {}
 
   async loadMap() {
     console.log(this);
@@ -74,6 +67,11 @@ export class MapPage implements OnDestroy {
     if (await this.loadMap()) {
       this.loadLines();
       this.loadClusters();
+      this.activatedRoute.params.subscribe((params) => {
+        if (params.latitude && params.longitude && this.map) {
+          this.map.setView([params.latitude, params.longitude], 15);
+        }
+      });
     }
   }
 
