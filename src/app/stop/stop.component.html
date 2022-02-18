@@ -17,7 +17,7 @@
   <ion-progress-bar type="indeterminate" *ngIf="schedules === undefined" ></ion-progress-bar>
   <ion-list>
     <ion-item *ngFor="let schedule of schedules">
-      <ion-label>
+      <ion-label style="background-color: rgb({{schedule.lineDescription.properties.COULEUR}}); color: rgb({{schedule.lineDescription.properties.COULEUR_TEXTE}})">
         {{ schedule.pattern.id.split(":")[1] }}
       </ion-label>
       <ion-label size="small">

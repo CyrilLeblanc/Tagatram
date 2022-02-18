@@ -32,6 +32,22 @@ export class StopComponent implements OnInit {
         return id[0] === 'SEM' && id[1].length === 1;
       }
     );
+    this.schedules.forEach(async (item) => {
+      // setup default color
+      item.lineDescription = {
+        properties: [
+          {
+            COULEUR: '0, 0, 0',
+            COULEUR_TEXTE: '255, 255, 255',
+          }
+        ]
+      }
+      let id =
+        item.pattern.id.split(':')[0] + ':' + item.pattern.id.split(':')[1];
+      item.lineDescription = (await this.api.getLineDescription(id)).features[0];
+    });
+    console.log(this.schedules);
+
   }
 
   renderTime(value: number): string {
@@ -42,7 +58,7 @@ export class StopComponent implements OnInit {
       date = new Date(0);
     }
     let hours = date.getHours() - 1;
-    let minutes = date.getMinutes() + 1;
+    let minutes = date.getMinutes();
     let seconds = date.getSeconds();
     return minutes + 'mn ';
   }
@@ -63,14 +79,17 @@ export class StopComponent implements OnInit {
   }
 
   goToMap() {
-    this.router.navigate([
-      '/tabs/map',
+    this.router.navigate(
+      [
+        '/tabs/map',
+        {
+          latitude: this.latitude,
+          longitude: this.longitude,
+        },
+      ],
       {
-        latitude: this.latitude,
-        longitude: this.longitude,
-      },
-    ], {
-      replaceUrl: true,
-    });
+        replaceUrl: true,
+      }
+    );
   }
 }
