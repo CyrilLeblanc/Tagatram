@@ -9,11 +9,11 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-input placeholder="Départ" [(ngModel)]="depart" (click)="openModalDeparture()" fill="clear"></ion-input>
+          <ion-input placeholder="{{depart}}" [(ngModel)]="depart" (click)="openModalDeparture()" fill="clear"></ion-input>
           <ion-button class="reverseBtn" fill="clear" (click)="reverseStops()">
             <ion-icon name="swap-vertical"></ion-icon>
           </ion-button>
-          <ion-input placeholder="Arrivée" [(ngModel)]="arrivee" (click)="openModalArrival()" fill="clear"></ion-input>
+          <ion-input placeholder="{{arrivee}}" [(ngModel)]="arrivee" (click)="openModalArrival()" fill="clear"></ion-input>
         </ion-col>
       </ion-row>
     </ion-grid>
