@@ -9,6 +9,7 @@
 	--ion-color-accent-contrast-rgb: 255,255,255;
 	--ion-color-accent-shade: #9d2820;
 	--ion-color-accent-tint: #ba423a;
+  --ion-color-accent-light: #ea9283;
 
   /* Dark */
   --ion-color-dark: #232323;
@@ -28,13 +29,11 @@
 }
 
 ion-tab-button {
-    --color: var(--ion-color-accent);
-    --color-selected: var(--ion-color-accent-tint);
+  --color: var(--ion-color-accent);
 }
 
 ion-button {
   --color: var(--ion-color-accent);
-  --color-selected: var(--ion-color-accent-tint);
 }
 
 ion-title {
@@ -42,19 +41,7 @@ ion-title {
   text-align: center;
 }
 
-
-ion-select {
-  color: var(--ion-color-accent-tint);
-  font-size: 1.25rem;
-
-  &::part(text) {
-    color: var(--ion-color-accent-tint);
-  }
-
-}
-
 ion-searchbar {
-  --placeholder-color: var(--ion-color-accent-tint);
   --icon-color: var(--ion-color-accent);
   --border-radius: 0.5rem;
   border-radius: 0.5rem;
@@ -62,7 +49,6 @@ ion-searchbar {
 }
 
 ion-toggle {
-  --background-checked: var(--ion-color-accent-tint);
   --handle-background: var(--ion-color-accent);
   --handle-background-checked: var(--ion-color-accent);
 }
@@ -74,9 +60,7 @@ ion-segment {
 
   ion-segment-button {
     margin-bottom: 0.25rem;
-    --indicator-color: var(--ion-color-accent-tint);
     --color: var(--ion-color-accent);
-    --color-checked: var(--ion-color-accent-tint);
     font-size: smaller;
   }
 }
@@ -97,6 +81,27 @@ ion-card {
 ion-progress-bar {
   --background: var(--ion-color-light-shade);
   --progress-background: var(--ion-color-accent-tint);
+}
+
+.dateTimeDiv {
+
+  .dateTimeLabel {
+    color: var(--ion-color-accent);
+    font-size: large;   
+  }
+
+  ion-item {
+    --ion-item-background: transparent;
+    border-bottom: solid 1px var(--ion-color-accent);
+    
+    ion-select {
+      font-size: medium;
+    }
+
+    ion-label {
+      font-size: medium;
+    }
+  }
 }
 
 .footer {
@@ -123,6 +128,14 @@ ion-app.dark {
   
   ion-tab-bar {
     --ion-background-color: var(--ion-color-dark);
+
+    ion-tab-button {
+      --color-selected: var(--ion-color-accent-tint);
+    }
+  }
+
+  ion-button {
+    --color-selected: var(--ion-color-accent-tint);
   }
 
   ion-content {
@@ -131,10 +144,25 @@ ion-app.dark {
 
   ion-toggle {
     --background: var(--ion-color-dark-tint);
+    --background-checked: var(--ion-color-accent-tint);
   }
 
   ion-segment {
     --background: var(--ion-color-dark-tint);
+
+    ion-segment-button {
+      --indicator-color: var(--ion-color-accent-tint);
+      --color-checked: var(--ion-color-accent-tint);
+    }
+  }
+
+  ion-select {
+    color: var(--ion-color-accent-tint);
+    font-size: 1.25rem;
+  
+    &::part(text) {
+      color: var(--ion-color-accent-tint);
+    }
   }
 
   .closeBtn {
@@ -151,6 +179,16 @@ ion-app.dark {
     ion-icon {
       color: var(--ion-color-light-shade);
       font-size: 2rem;
+    }
+  }
+
+  .dateTimeDiv {
+    
+    ion-item {
+
+      ion-label {
+        color: var(--ion-color-accent-tint);
+      }
     }
   }
 
@@ -190,6 +228,7 @@ ion-app.dark {
     background-color: var(--ion-color-dark);
     --background: var(--ion-color-dark-tint);
     box-shadow: 0.25rem 0.25rem 1rem black;
+    --placeholder-color: var(--ion-color-accent-tint);
   }
 
   ion-card {
@@ -232,6 +271,14 @@ ion-app.light {
   
   ion-tab-bar {
     --ion-background-color: white;
+
+    ion-tab-button {
+      --color-selected: var(--ion-color-accent-light);
+    }
+  }
+
+  ion-button {
+    --color-selected: var(--ion-color-accent-light);
   }
 
   ion-content {
@@ -240,10 +287,25 @@ ion-app.light {
 
   ion-toggle {
     --background: var(--ion-color-light);
+    --background-checked: var(--ion-color-accent-light);
   }
 
   ion-segment {
     --background: var(--ion-color-light);
+
+    ion-segment-button {
+      --indicator-color: var(--ion-color-accent-tint);
+      --color-checked: var(--ion-color-accent-light);
+    }
+  }
+
+  ion-select {
+    color: var(--ion-color-accent-light);
+    font-size: 1.25rem;
+  
+    &::part(text) {
+      color: var(--ion-color-accent-light);
+    }
   }
 
   .closeBtn {
@@ -260,6 +322,16 @@ ion-app.light {
     ion-icon {
       color: var(--ion-color-dark-shade);
       font-size: 2rem;
+    }
+  }
+
+  .dateTimeDiv {
+    
+    ion-item {
+
+      ion-label {
+        color: var(--ion-color-accent-light);
+      }
     }
   }
 
@@ -299,6 +371,7 @@ ion-app.light {
     background-color: var(--ion-color-light);
     --background: white;
     box-shadow: 0.25rem 0.25rem 1rem var(--ion-color-dark-tint);
+    --placeholder-color: var(--ion-color-accent-light);
   }
 
   .header {

@@ -37,27 +37,6 @@
    }
 }
 
-.dateTimeDiv {
-   
-   ion-label {
-      color: var(--ion-color-accent);
-   }
-
-   ion-item {
-      --ion-item-background: transparent;
-      border-bottom: solid 1px var(--ion-color-accent);
-      
-      ion-select {
-         font-size: medium;
-      }
-
-      ion-label {
-         color: var(--ion-color-accent-tint);
-         font-size: medium;
-      }
-   }
-}
-
 .pmrAccessDiv {
    display: flex;
    
