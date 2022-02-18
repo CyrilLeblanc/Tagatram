@@ -31,7 +31,6 @@ export class DetailItineraryPage implements OnInit {
     }
     this.legs = this.route.plan.itineraries[this.chosenItinerary].legs;
     this.getEachSteps();
-    console.log(this.route);
   }
 
   getEachSteps() {
